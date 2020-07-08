@@ -1,0 +1,14 @@
+GET  http://localhost:8080/users/test
+
+###
+POST  http://localhost:8080/users/create
+
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "mohamed@iyad.com",
+    "password": "myPassword",
+    "confirmPassword": "myPassword",
+    
+}
