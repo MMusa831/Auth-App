@@ -4,6 +4,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../auth/auth");
 const nodemailer = require("nodemailer");
+require("dotenv").config();
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Register Route
 router.post("/create", async (req, res) => {
@@ -27,15 +30,6 @@ router.post("/create", async (req, res) => {
         .status(400)
         .json({ msg: "A user with this email already exist!" });
     if (!displayName) displayName = email;
-    //   const salt = await bcrypt.genSalt()
-    //   const hashedPassword = await bcrypt.hash(password, salt);
-    //   const new_user = new User({
-    //    email,
-    //    password: hashedPassword,
-    //    displayName
-    //   });
-    //   const saved_user = await new_user.save();
-    //   res.json(saved_user);
 
     const token = jwt.sign(
       { displayName, email, password },
@@ -43,37 +37,59 @@ router.post("/create", async (req, res) => {
       { expiresIn: "20m" }
     );
 
-    // send mail
-    let transporter = nodemailer.createTransport({
-      service: "Gmail",
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: process.env.AUTH_EMAIL, // generated ethereal user
-        pass: process.env.AUTH_PASSWORD, // generated ethereal password
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
-    const URL = `http://localhost:8080/users/activate/${token}`;
-    let mailOptions = {
-      from: '"Portfolio contact" <myapp.test121@gmail.com>', // sender address
-      to: req.body.email, // list of receivers
-      subject: "Accoun activate link", // Subject line
+    const msg = {
+      to: email,
+      from: "myapp.test121@gmail.com",
+      subject: "Verification Accout Email",
       html: `
       <h2>Pleast click on the link to activate your account</h2>
-      <a href="http://${req.headers.host}/users/activate/${token}">${req.headers.host}/${token}</a>`, // html body
+       <a href="http://${req.headers.host}/users/activate/${token}">${req.headers.host}/${token}</a>`,
     };
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return res.json({
-          error: err.message,
-        });
-      }
+
+    try {
+      await sgMail.send(msg);
       return res.json({
         message: "Email has been sent, please activate your account",
-      });
-    });
+       });
+    } catch (error) {
+      console.error(error);
+
+      if (error.response) {
+        res.json(error.response.body);
+      }
+    }
+
+    // let transporter = nodemailer.createTransport({
+    //   service: "Gmail",
+    //   secure: false, // true for 465, false for other ports
+    //   auth: {
+    //     user: process.env.AUTH_EMAIL, // generated ethereal user
+    //     pass: process.env.AUTH_PASSWORD, // generated ethereal password
+    //   },
+    //   tls: {
+    //     rejectUnauthorized: false,
+    //   },
+    // });
+    // const URL = `http://localhost:8080/users/activate/${token}`;
+
+    // let mailOptions = {
+    //   from: '"Portfolio contact" <myapp.test121@gmail.com>', // sender address
+    //   to: req.body.email, // list of receivers
+    //   subject: "Accoun activate link", // Subject line
+    //   html: `
+    //   <h2>Pleast click on the link to activate your account</h2>
+    //   <a href="http://${req.headers.host}/users/activate/${token}">${req.headers.host}/${token}</a>`, // html body
+    // };
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     return res.json({
+    //       error: err.message,
+    //     });
+    //   }
+    //   return res.json({
+    //     message: "Email has been sent, please activate your account",
+    //   });
+    // });
   } catch (err) {
     console.log(err);
   }
@@ -95,7 +111,7 @@ router.get("/activate/:token", (req, res) => {
       User.findOne({ email }).exec((err, user) => {
         if (user) {
           return res.status(400).json({
-            error: "User already exist!",
+            error: "User with this email already exist!",
           });
         }
         let newUser = new User({ displayName, email, password });
