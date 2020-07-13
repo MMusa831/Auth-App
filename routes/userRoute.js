@@ -5,8 +5,6 @@ const jwt = require("jsonwebtoken");
 const auth = require("../auth/auth");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Register Route
 router.post("/create", async (req, res) => {
@@ -36,28 +34,32 @@ router.post("/create", async (req, res) => {
       process.env.JWT_SECRET_KEY,
       { expiresIn: "20m" }
     );
+    // Sending Email
+ const body = `
+    <h2>Pleast click on the link to activate your account</h2>
+    <a href=${req.headers.host}/users/activate/${token}">${req.headers.host}/${token}</a>`;   
+    
+var helper = require("sendgrid").mail;
+var from_email = new helper.Email("myapp.test121@gmail.com");
+var to_email = new helper.Email(email);
+var subject = "Hello World!";
+var content = new helper.Content("text/plain", body);
+var mail = new helper.Mail(from_email, subject, to_email, content);
 
-    const msg = {
-      to: email,
-      from: "myapp.test121@gmail.com",
-      subject: "Verification Accout Email",
-      html: `
-      <h2>Pleast click on the link to activate your account</h2>
-       <a href="http://${req.headers.host}/users/activate/${token}">${req.headers.host}/${token}</a>`,
-    };
+var sg = require("sendgrid")(process.env.SENDGRID_API_KEY);
+var request = sg.emptyRequest({
+  method: "POST",
+  path: "/v3/mail/send",
+  body: mail.toJSON(),
+});
 
-    try {
-      await sgMail.send(msg);
-      return res.json({
-        message: "Email has been sent, please activate your account",
-       });
-    } catch (error) {
-      console.error(error);
-
-      if (error.response) {
-        res.json(error.response.body);
-      }
-    }
+sg.API(request,  (error, response) => {
+  if(error) {
+    res.send(error.message)
+    console.log(response.statusCode);
+  }
+  res.json({msg: 'Email has been sent please verify your account!'});
+});
 
     // let transporter = nodemailer.createTransport({
     //   service: "Gmail",
