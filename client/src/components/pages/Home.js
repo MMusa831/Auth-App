@@ -29,7 +29,7 @@ function Home() {
     //   });
   }, []);
   const fetchPost = () => {
-    fetch("/posts/allPosts", {
+    fetch("/posts/posts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("usertoken"),
       },
