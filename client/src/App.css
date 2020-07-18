@@ -1,90 +1,150 @@
-@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Niconne&family=Roboto:ital@1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Niconne&family=Roboto:ital@1&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 a {
-    color: rgb(142, 218, 231);
-    text-decoration: unset;
+  color: rgb(142, 218, 231);
+  text-decoration: unset;
 }
 ul {
-    list-style: none;
-    margin-left: 1.5rem;
+  list-style: none;
+  margin-left: 1.5rem;
 }
-button, input[type="submit"] {
-    border: none;
-    background: none;
-    color: unset;
-    cursor: pointer;
+button,
+input[type="submit"] {
+  border: none;
+  background: none;
+  color: unset;
+  cursor: pointer;
 }
-h1, h2, h3, h4, h5, h6, p, ul, ol {
-    margin: 1em 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+  margin: 1em 0;
 }
 .navabr {
   background-color: tomato;
 }
 /* General style*/
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 /* Header*/
 .header {
-  height: 3em;
+  height: 4em;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(163, 33, 10);
+  background-color: #e2ecee;
+  border-bottom: 1px solid #000000;
+  box-shadow: 0 0 4px 0 #000000;
   display: flex;
 }
-.header .title {
-  color: #ffffff;
+.title {
+  color: #0c075c;
+  font-family: "Roboto";
+  font-weight: 800;
   margin: 0;
   padding: 0 1em;
 }
-.header .auth-buttons {
- display: flex;
- height: 100%;
+.title:link {
+  text-decoration: none;
+  cursor: pointer;
 }
-.user-link {
+.userLink {
   display: flex;
   height: 100%;
+  align-items: center;
+  margin: auto 1em;
 }
-.user-link button {
-  border: none;
-  padding: 0 1rem;
-  color: #ffffff;
-  font-size: 1.1rem;
-  background-color: rgb(133, 27, 8);
+.gallery {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
-.header .auth-buttons button {
-  border: none;
-  padding: 0 1rem;
-  color: #ffffff;
-  font-size: 1.1rem;
-  background-color: rgb(133, 27, 8);
+.link-toggle {
+  color: #0c0c0c;
+  margin: 20px auto;
+  font-weight: 700;
+  font-size: 1.2rem;
+  
 }
-.header .auth-buttons button:hover {
-  background-color:  rgb(218, 76, 51);
+.posted-by {
+  font-weight: 700;
+  padding-top: 20px;
 }
-.user-link button:hover {
-  background-color:  rgb(218, 76, 51);
-} 
+.post-title {
+  font-weight: 700;
+}
+.icons {
+  font-size: 30px;
+  color: #080808;
+  margin-right: 0.5rem;  
+  justify-content: space-between;
+}
+.items {
+  width: 30%;
+  height: 30vh;
+  margin: 10px 0;
+}
+#toast-container {
+  top: 30px !important;
+ float: left;
+  text-align: center;
+}
+ .form-div {
+  max-width: 600px;
+  margin: 25vh auto;
+}
+
+.card {
+  max-width: 600px;
+  height: max-content;
+  margin: 30px auto;
+}
+.post-div {
+  max-width: 600px;
+  margin: 30vh auto;   
+}
+.navbarItem .linkItems{
+  font-family: "Roboto";
+  font-size: 1.2rem;
+  color: #0c0c0c;
+  margin: auto 1em;
+}
+.navbarItem {
+  margin-right: 2em;
+}
+.linkItems:link {
+  text-decoration: none;
+}
+.linkItems:hover {
+  text-decoration: none;
+ 
+}
 .container {
   margin: 0;
   padding: 0;
 }
 .register {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   margin: 30px auto;
   text-align: center;
 }
-.app-container{
-  max-width: 600px;
+.app-container {
+  width: 80%;
   margin: 10vh auto;
 }
- .input  {
-  display: block; 
+.input {
+  display: block;
   width: 100%;
   margin: auto;
   background-color: rgb(247, 250, 245);
@@ -99,19 +159,18 @@ body {
   margin: 1rem 0;
   justify-content: space-between;
   align-items: center;
-  font-weight: 700;  
+  font-weight: 700;
 }
 .error-alert button {
- font-size: 1rem;
- font-weight: 700; 
- color: red; 
- margin: 0 0.4rem;
- 
+  font-size: 1rem;
+  font-weight: 700;
+  color: red;
+  margin: 0 0.4rem;
 }
 
 #btn {
   width: 100%;
-  background-color: rgba(29, 86, 211, 0.959);
+  background-color:#27ae60;
   margin: 0.6rem auto;
   color: white;
   padding: 0.5em;
@@ -119,23 +178,22 @@ body {
   font-weight: 700;
 }
 #btn:hover {
-  background-color: rgba(138, 168, 233, 0.959);
-  color: blue;
+  background-color: #b8e994;
+  color: green;
   font-weight: 700;
 }
 @media screen and (max-width: 500px) {
   .header .title {
     font-size: 1.1rem;
-}
-.header .auth-buttons button {
-  padding: 0 0.5rem;
-  font-size: 0.9rem;
-}
-.container .form {
- align-items: center;
- width: 80%;
- margin: 25vh auto;
- justify-content: center;
-
-}
+  }
+  .header .auth-buttons button {
+    padding: 0 0.5rem;
+    font-size: 0.9rem;
+  }
+   .form {
+    align-items: center;
+    width: 100%;
+    margin: 25vh auto;
+    justify-content: center;
+  }
 }

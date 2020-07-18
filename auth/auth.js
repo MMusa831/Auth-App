@@ -1,21 +1,22 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const User = mongoose.model("User");
+require("dotenv").config();
 
-const auth = ( req, res, next) => {
-    try {
-        const token = req.header("x-auth-token");
-        if (!token)
-            return res
-                .status(401)
-                .json({ msg: "No athentication token, access denied" });
-        const verified = jwt.verify(token, process.env.JWT_SECURE_KEY);
-        if (!verified)
-            return res
-                .status(401)
-                .json({ msg: "Token verefication failed, access denied" }); 
-         req.user = verified.id;   
-         next();    
-    } catch (err) {
-        res.status(500).json({ error: err.message })
-    }    
-}
-module.exports = auth;
+module.exports =  (req, res, next) => {
+    const { authorization } = req.headers;
+    if (!authorization) return res.json({error:"You must be logged in"});
+    const token =  authorization.replace("Bearer ", "");
+    if (!token) return res.json({error:"You must be logged in"});
+
+   jwt.verify(token, process.env.JWT_SECRET_KEY, (err, payload) =>{
+       if (err) return res.json({ error: "You must be logged in" });
+
+       User.findById(payload.id).then(result => {
+           req.user = result
+           next();
+       })
+   });
+    
+
+};

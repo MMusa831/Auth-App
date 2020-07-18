@@ -8,7 +8,6 @@ const path = require("path");
 // Set up express
 
 const app = express();
-app.use(express.json());
 app.use(cors());
 
 // Database Connection
@@ -30,7 +29,14 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 // Set up routes
+
+require('./models/postModel')
+require('./models/userModel')
+
+app.use(express.json());
+
 app.use("/users", require("./routes/userRoute"));
+app.use("/posts", require("./routes/postRoute"));
 
 app.listen(port, () => {
   console.log(`Server start on Port: ${port}`);

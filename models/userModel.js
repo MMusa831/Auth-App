@@ -5,4 +5,4 @@ const userSchema = new Mongoose.Schema({
   displayName: { type: String },
   password: { type: String, requiredPaths: true, minlength: 6 },
 });
-module.exports = User = Mongoose.model('utilisateurs', userSchema);
+Mongoose.model("User", userSchema);

@@ -1,59 +1,55 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer, useContext} from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import Header from './components/layouts/Header' ;
 import Home from './components/pages/Home';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Profile from './components/auth/Profile'
+import Login from './components/pages/Login';
+import Register from './components/pages/Register';
+import Profile from './components/pages/Profile'
 import UserContext from './components/context/Context'
+import CreatePost from './components/pages/CreatePoste'
+import { reducer, initialState } from './reducers/userReducer'
 import Axios from 'axios';
 
-function App() {
-  const [userData, setUserData ] = useState({
-    token: undefined,
-    user: undefined
-  });
+const Routing = () => {
+ 
+  const history = useHistory();
+  const { state, dispatch } = useContext(UserContext);
 
-useEffect(() => {
-  const checkLoggedIn = async () => {
-    let token = localStorage.getItem("auth-token");
-    if (token === null) {
-      localStorage.setItem("auth-token", "");
-      token = "";
+  useEffect(() => {
+    const user = localStorage.getItem("user")
+    if (user){
+      dispatch({ type: "USER", payload: user })
+      history.push('/')          
+    }else{ 
+      history.push('/login')
     }
-    const tokenRes = await Axios.post("/users/tokenIsValid", null, {
-      headers: { "x-auth-token": token },
-    });
-     if (tokenRes.data) {
-     const userRes = await Axios.get("/users", {
-        headers: { "x-auth-token": token },
-      });
-    setUserData({
-      token,
-      user: userRes.data
-    })   
-    }
-  };
-  checkLoggedIn();
-}, [])
+  }, [])
+  return(
+    <div className="app-container">
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/createpost" component={CreatePost} />
+      </Switch>
+    </div>
+  )
+}
+function App() {
+ 
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <>
-      <Router>
-        <UserContext.Provider value={{userData, setUserData}}>
+    <div>
+      <UserContext.Provider value={{ state, dispatch }}>
+        <Router>
           <Header />
-          <div className="app-container">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/profile" component={Profile} />
-          </Switch>
-          </div>
-        </UserContext.Provider>
-      </Router>
-    </>
+          <Routing />
+        </Router>
+      </UserContext.Provider>
+    </div>
   );
 }
 

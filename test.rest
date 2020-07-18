@@ -1,4 +1,6 @@
-GET  http://localhost:8080/users/test
+GET  http://localhost:8080/posts/myPosts
+
+
 
 ###
 POST  http://localhost:8080/users/create
