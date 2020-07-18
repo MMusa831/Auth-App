@@ -12,9 +12,8 @@ function Home() {
       },
     })
       .then((res) => res.json())
-      .then((result) => {
-        setData(result.posts);
-        console.log(result);
+      .then((response) => {
+        setData(response.posts);       
       });
   }, []);
 
