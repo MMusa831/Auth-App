@@ -7,7 +7,7 @@ function Home() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchPost();
+   
     // Axios.get("/posts/allPosts", {
     //   headers: { Authorization: "Bearer " + localStorage.getItem("usertoken") },
     // }).then((result) => {
@@ -17,19 +17,7 @@ function Home() {
     //   .catch((error) => {
     //     console.log(error);
     //   });
-    // fetch("/posts/allPosts", {
-    //   headers: {
-    //     Authorization: "Bearer " + localStorage.getItem("usertoken"),
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     setData(result.posts);
-    //     console.log(result);
-    //   });
-  }, []);
-  const fetchPost = () => {
-    fetch("/posts/posts", {
+    fetch("/posts/allPosts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("usertoken"),
       },
@@ -39,8 +27,8 @@ function Home() {
         setData(result.posts);
         console.log(result);
       });
-  };
-
+  }, []);
+  
   return (
     <div className="home">
       {data.map((item) => {
