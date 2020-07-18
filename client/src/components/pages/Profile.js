@@ -15,7 +15,7 @@ const Profile = () => {
         Authorization: "Bearer " + localStorage.getItem("usertoken"),
       },
     })
-      .then((res) => res.json())
+      .then((res) => JSON.parse(res))
       .then((response) => {
         setPost(response.myposts);
       })

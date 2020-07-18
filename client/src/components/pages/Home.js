@@ -11,13 +11,13 @@ function Home() {
         Authorization: "Bearer " + localStorage.getItem("usertoken"),
       },
     })
-      .then((res) => res.json())
+      .then((res) => JSON.parse(res))
       .then((response) => {
-        setData(response.posts);       
+        setData(response.posts);
       })
-      .catch(err => {
-        console.log(err)
-      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
