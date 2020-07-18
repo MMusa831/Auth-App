@@ -32,6 +32,7 @@ function Register() {
       });  
       history.push('/login')
     }catch(err){
+      console.log(err)
        err.response.data.msg &&
          M.toast({
            html: err.response.data.msg,

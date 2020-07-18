@@ -30,8 +30,8 @@ if (process.env.NODE_ENV === "production") {
 }
 // Set up routes
 
-require('./models/postModel')
-require('./models/userModel')
+require("./models/postModel");
+require("./models/userModel");
 
 app.use(express.json());
 
