@@ -15,7 +15,7 @@ function NavBar() {
       <div className="navbarItem">      
       <Link className="linkItems" to='/profile'>Profile</Link>
       <Link className="linkItems" to='/createpost'>Create Post</Link>
-      <a onClick={logout} className="linkItems" >Logout</a>
+      <Link onClick={logout} className="linkItems" >Logout</Link>
       </div>
     ]
   );

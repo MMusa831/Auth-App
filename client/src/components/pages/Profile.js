@@ -16,8 +16,11 @@ const Profile = () => {
       },
     })
       .then((res) => res.json())
-      .then((response) => {       
+      .then((response) => {
         setPost(response.myposts);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 

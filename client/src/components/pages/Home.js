@@ -14,7 +14,10 @@ function Home() {
       .then((res) => res.json())
       .then((response) => {
         setData(response.posts);       
-      });
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }, []);
 
   return (

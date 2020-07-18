@@ -61,7 +61,7 @@ function Login() {
             <input
               type="submit"
               id="btn"
-              value="Register"
+              value="Login"
             />
             <Link className="link-toggle" to="/register">You have not account? Register here</Link>
           </form>
