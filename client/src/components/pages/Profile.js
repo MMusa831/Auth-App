@@ -15,12 +15,10 @@ const Profile = () => {
         Authorization: "Bearer " + localStorage.getItem("usertoken"),
       },
     })
-      .then((res) => JSON.parse(res))
-      .then((response) => {
-        setPost(response.myposts);
-      })
-      .catch((err) => {
-        console.log(err);
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setPost(result.myposts);
       });
   };
 
