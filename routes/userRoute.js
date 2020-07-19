@@ -59,7 +59,7 @@ router.post("/create", async (req, res) => {
     );
     transporter.sendMail({
       to: new_user.email,
-      from: "no-replay@gmail.com",
+      from: "no-replay@blogpost.com",
       subject: "Activate account link",
       html: `
            <h2>Pleast click on the link to activate your account</h2>
