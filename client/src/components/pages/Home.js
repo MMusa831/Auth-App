@@ -31,11 +31,11 @@ function Home() {
             <div className="card-content">
               <i className="icons far fa-thumbs-up"></i>
               <i className="icons far fa-thumbs-down"></i>             
-              <h6 className="post-title">{item.title}</h6>
+              {/* <h6 className="post-title">{item.title}</h6>
               <p>{item.body}</p>
               <p className="posted-by">
                 Created By :{item.postedBy.displayName}
-              </p>
+              </p> */}
               <input
                 id="standard-basic"
                 className="input"
