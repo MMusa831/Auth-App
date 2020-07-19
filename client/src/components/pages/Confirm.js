@@ -14,7 +14,7 @@ function Confirm() {
          if (data.error) {
            console.log(data.error);
          } else {
-             console.log(data.maessage);
+             console.log(data.success);
            history.push("/login");
          }
        });

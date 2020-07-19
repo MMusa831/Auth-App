@@ -36,11 +36,9 @@ router.post("/create", async (req, res) => {
         .status(400)
         .json({ error: "Pasword must be at least 6 character long!" });
     if (password !== confirmPassword)
-      return res
-        .status(400)
-        .json({
-          error: "Your password and confirmation password are not match!",
-        });
+      return res.status(400).json({
+        error: "Your password and confirmation password are not match!",
+      });
     const exist_user = await User.findOne({ email: email });
     if (exist_user)
       return res
@@ -59,18 +57,17 @@ router.post("/create", async (req, res) => {
       process.env.JWT_SECRET_KEY,
       { expiresIn: "20m" }
     );
-     transporter.sendMail({
-       to: new_user.email,
-       from: "no-replay@gmail.com",
-       subject: "Activate account link",
-       html: `
+    transporter.sendMail({
+      to: new_user.email,
+      from: "no-replay@gmail.com",
+      subject: "Activate account link",
+      html: `
            <h2>Pleast click on the link to activate your account</h2>
           <a href="http://${req.headers.host}/confirm/${token}">Please click here to activate your account</a>`,
-     });
+    });
     return res.json({
       message: "Email has been sent, please activate your account",
     });
-   
   } catch (err) {
     console.log(err);
   }
@@ -78,7 +75,7 @@ router.post("/create", async (req, res) => {
 
 // Activate route
 
-router.get("/activate/:token", (req, res) => { 
+router.get("/activate/:token", (req, res) => {
   const token = req.params.token;
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
