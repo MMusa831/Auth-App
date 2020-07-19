@@ -11,8 +11,8 @@ function Confirm() {
 
       // .then((res) => res.json())
      fetch(`/users/activate/${token}`)
-       .then((data) => {         
-         console.log(data.message);
+       .then((data) => {
+         console.log(data.success);
        })
        .catch((err) => console.log(err));
   }, [])
