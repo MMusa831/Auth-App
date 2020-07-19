@@ -21,31 +21,32 @@ function Home() {
   }, []);
   
   return (
-    <div className="home">
-      {data.map((item) => {
-        return (
-          <div className="card" key={item._id}>
-            <div className="card-image">
-              <img src={item.photo} />
-            </div>
-            <div className="card-content">
-              <i className="icons far fa-thumbs-up"></i>
-              <i className="icons far fa-thumbs-down"></i>             
-              {/* <h6 className="post-title">{item.title}</h6>
-              <p>{item.body}</p>
-              <p className="posted-by">
-                Created By :{item.postedBy.displayName}
-              </p> */}
-              <input
-                id="standard-basic"
-                className="input"
-                placeholder="Add comment"
-              />
-            </div>
-          </div>
-        );
-      })}
-    </div>   
+    <div>hello</div> 
+    // <div className="home">
+    //   {data.map((item) => {
+    //     return (
+    //       <div className="card" key={item._id}>
+    //         <div className="card-image">
+    //           <img src={item.photo} />
+    //         </div>
+    //         <div className="card-content">
+    //           <i className="icons far fa-thumbs-up"></i>
+    //           <i className="icons far fa-thumbs-down"></i>             
+    //           <h6 className="post-title">{item.title}</h6>
+    //           <p>{item.body}</p>
+    //           <p className="posted-by">
+    //             Created By :{item.postedBy.displayName}
+    //           </p>
+    //           <input
+    //             id="standard-basic"
+    //             className="input"
+    //             placeholder="Add comment"
+    //           />
+    //         </div>
+    //       </div>
+    //     );
+    //   })}
+    // </div>   
   );
 }
 
