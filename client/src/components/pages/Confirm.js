@@ -3,12 +3,14 @@ import Axios from 'axios'
 import { useParams } from 'react-router-dom';
 
 function Confirm() {
+    const {token} = useParams();
+     console.log(token);
     const ConfirmEmail = () => {
-        const token = useParams()
+        
        Axios.get(`/activate/${token}`)
        .then(res => {
 
-           console.log(res.token)
+          
        })
     }
     return (
