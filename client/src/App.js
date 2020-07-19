@@ -23,7 +23,7 @@ const Routing = () => {
       dispatch({ type: "USER", payload: user })
       history.push('/')          
     }else{ 
-      if(!history.location.pathname.startsWith('/confirm'))
+      if(!history.location.pathname.startsWith('/confirm/:token'))
       history.push('/login')
     }
   }, [])
