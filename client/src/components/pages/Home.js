@@ -16,9 +16,9 @@ function Home() {
     //   });
    
     fetch("/posts/allPosts", {
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("usertoken")
-      },
+      // headers: {
+      //   "Authorization": "Bearer " + localStorage.getItem("usertoken")
+      // },
     })
       .then((res) => res.json())
       .then((result) => {
