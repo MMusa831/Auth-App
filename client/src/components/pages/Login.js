@@ -16,32 +16,63 @@ function Login() {
   
   const onSubmit = async (e) => {
 
-    e.preventDefault();
-    try{
-      const loginUser = { email, password };    
-      const logRes = await Axios.post('/users/login', loginUser);
+    // e.preventDefault();
+    // try{
+    //   const loginUser = { email, password };    
+    //   const logRes = await Axios.post('/users/login', loginUser);
       
-      localStorage.setItem('usertoken', logRes.data.token)
-      localStorage.setItem('user', JSON.stringify(logRes.data.user))
-      dispatch({ type: "USER", payload: logRes.data.user})     
-      history.push('/');
-       M.toast({
-         html: "you logged in successfully",
-         classes: "#2e7d32 green darken-3",
-       });     
-    } catch (err) {
-      err.response.data.msg &&
-        M.toast({
-          html: err.response.data.msg,
-          classes: "#c62828 red darken-3",
-        });        
-    }
+    //   localStorage.setItem('usertoken', logRes.data.token)
+    //   localStorage.setItem('user', JSON.stringify(logRes.data.user))
+    //   dispatch({ type: "USER", payload: logRes.data.user})     
+    //   history.push('/');
+    //    M.toast({
+    //      html: "you logged in successfully",
+    //      classes: "#2e7d32 green darken-3",
+    //    });     
+    // } catch (err) {
+    //   err.response.data.msg &&
+    //     M.toast({
+    //       html: err.response.data.msg,
+    //       classes: "#c62828 red darken-3",
+    //     });        
+    // }
+    fetch("/users/login", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,       
+        password,
+       
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          M.toast({
+            html: data.error,
+            classes: "#c62828 red darken-3",
+          });
+        } else {
+          M.toast({
+            html: "you logged in successfully",
+            classes: "#2e7d32 green darken-3",
+          });
+         localStorage.setItem('usertoken', data.token)
+         localStorage.setItem('user', JSON.stringify(data.user))
+         dispatch({ type: "USER", payload: data.user})     
+          history.push('/')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
    
     return (
       <div className="log-div"> 
-        <div className="form-div">
-          <form onSubmit={onSubmit} className="form">
+        <div className="form-div">          
             <h3 className="register">Login</h3>           
             <input
               id="standard-basic"
@@ -62,9 +93,9 @@ function Login() {
               type="submit"
               id="btn"
               value="Login"
+              onClick={onSubmit}
             />
-            <Link className="link-toggle" to="/register">You have not account? Register here</Link>
-          </form>
+            <Link className="link-toggle" to="/register">You have not account? Register here</Link>         
          </div>     
        </div>
     ); 

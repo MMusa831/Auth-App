@@ -13,7 +13,8 @@ function Register() {
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
-  const onSubmit = async (e) => {
+  const onSubmit =  () => {   
+      
     fetch("/users/create", {
       method: "post",
       headers: {
@@ -40,30 +41,11 @@ function Register() {
           });
           history.push('/login')
         }
-      });
+      })
+      .catch(err => {
+        console.log(err)
+      })
 
-    //  e.preventDefault();
-
-    //   try{
-    //     const newUser = { email, displayName, password, confirmPassword };
-    //    const logRes = await Axios.post("/users/create", newUser);
-    //     setUserData({
-    //       token: logRes.data.token,
-    //       user: logRes.data.user
-    //     })
-    //     M.toast({
-    //       html: "you signed up in successfully",
-    //       classes: "#2e7d32 green darken-3",
-    //     });
-    //     history.push('/login')
-    //   }catch(err){
-    //     console.log(err)
-    //      err.response.data.msg &&
-    //        M.toast({
-    //          html: err.response.data.msg,
-    //          classes: "#c62828 red darken-3",
-    //        });
-    //   }
   };
 
   return (

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const User = mongoose.model('User')
+const mongoose = require("mongoose");
+const User = mongoose.model("User");
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -10,39 +10,54 @@ const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Register Route
-router.post('/create', async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     let { email, displayName, password, confirmPassword } = req.body;
 
     // validate
     if (!email || !password || !confirmPassword)
-      return res.status(400).json({ error: 'Please Add all the fields!' })
+      return res.status(400).json({ error: "Please Add all the fields!" });
+    if (
+      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    )
+      return res
+        .status(400)
+        .json({ error: "Please enter a valid format email!" });
     if (password.length < 6)
-      return res.status(400).json({ error: 'Pasword must be at least 6 character long!' })
+      return res
+        .status(400)
+        .json({ error: "Pasword must be at least 6 character long!" });
     if (password !== confirmPassword)
-      return res.status(400).json({ error: 'Your password and confirmation password are not match!' });
-    const exist_user = await User.findOne({ email: email })
+      return res
+        .status(400)
+        .json({
+          error: "Your password and confirmation password are not match!",
+        });
+    const exist_user = await User.findOne({ email: email });
     if (exist_user)
-      return res.status(400).json({ error: 'A user with this email already exist!' });
+      return res
+        .status(400)
+        .json({ error: "A user with this email already exist!" });
     if (!displayName) displayName = email;
-    const salt = await bcrypt.genSalt()
+    const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const new_user = new User({
       email,
       password: hashedPassword,
-      displayName
+      displayName,
     });
     // const saved_user = await new_user.save();
     // res.json(saved_user);
-    new_user.save()
-    .then(new_user => {
-      res.json({message: "You singed up successfully"})
-    })
+    new_user.save().then((new_user) => {
+      res.json({ message: "You singed up successfully" });
+    });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 });
-   
+
 // Activate route
 
 router.get("/activate/:token", (req, res) => {
@@ -89,16 +104,24 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password)
-      return res.status(400).json({ msg: "Please fill all the fields!" });
+      return res.status(400).json({ error: "Please fill all the fields!" });
+    if (
+      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    )
+      return res
+        .status(400)
+        .json({ error: "Please enter a valid format email!" });
     const user = await User.findOne({ email: email });
     if (!user)
       return res
         .status(400)
-        .json({ msg: "user with this email does not exist!" });
+        .json({ error: "user with this email does not exist!" });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
-      return res.status(400).json({ msg: "Invalid email or password!" });
+      return res.status(400).json({ error: "Invalid email or password!" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
     res.json({
@@ -124,9 +147,7 @@ router.delete("/delete", auth, async (req, res) => {
 });
 // Verefied token
 router.get("/protected", auth, (req, res) => {
-  
-  res.send('it works')
- 
+  res.send("it works");
 });
 // Get User route
 router.get("/", auth, async (req, res) => {
