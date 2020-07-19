@@ -10,10 +10,17 @@ function Confirm() {
      console.log(Token);
     const ConfirmEmail = (token) => {
         
-       Axios.get(`/activate/${Token}`).then((res) => {
-         if (res.error) {
-           console.log(res.error);
+       Axios.get(`/activate/${Token}`).then((data) => {
+         if (data.error) {
+           M.toast({
+             html: data.error,
+             classes: "#c62828 red darken-3",
+           });
          } else {
+              M.toast({
+                html: data.success,
+                classes: "#c62828 red darken-3",
+              });
            history.push("/login");
          }
        });
