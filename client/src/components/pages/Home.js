@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Tooltip, Icon } from "antd";
 import UserContext from "../context/Context";
 import Axios from "axios";
@@ -7,18 +7,10 @@ function Home() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    // Axios.get(URL, { headers: { Authorization: AuthStr } }).then(response => {
-    //   // If request is good...
-    //   console.log(response.data);
-    // })
-    //   .catch((error) => {
-    //     console.log('error 3 ' + error);
-    //   });
-   
     fetch("/posts/allPosts", {
-      // headers: {
-      //   "Authorization": "Bearer " + localStorage.getItem("usertoken")
-      // },
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("usertoken"),
+      },
     })
       .then((res) => res.json())
       .then((result) => {
@@ -26,7 +18,7 @@ function Home() {
         console.log(result);
       });
   }, []);
-  
+
   return (
     <div className="home">
       {data.map((item) => {
@@ -37,7 +29,7 @@ function Home() {
             </div>
             <div className="card-content">
               <i className="icons far fa-thumbs-up"></i>
-              <i className="icons far fa-thumbs-down"></i>             
+              <i className="icons far fa-thumbs-down"></i>
               <h6 className="post-title">{item.title}</h6>
               <p>{item.body}</p>
               <p className="posted-by">
@@ -52,7 +44,7 @@ function Home() {
           </div>
         );
       })}
-    </div>   
+    </div>
   );
 }
 
