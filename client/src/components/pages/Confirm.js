@@ -9,8 +9,8 @@ function Confirm() {
     console.log(token);
   useEffect(()=> {
 
-      // .then((res) => res.json())
-     fetch(`/users/activate/${token}`)
+      fetch(`/users/activate/${token}`)
+       .then((res) => res.json())
        .then((data) => {
          console.log(data.success);
        })
