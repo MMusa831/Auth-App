@@ -11,35 +11,36 @@ const CreatePost = () => {
   const [url, setUrl] = useState("");
   const history = useHistory();
 
-  // useEffect(() => {
-  //   if (url) {
-  //     fetch("/posts/create", {
-  //       method: "post",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Authorization": "Bearer " + localStorage.getItem("usertoken")
-  //       },
-  //       body: JSON.stringify({
-  //         title,
-  //         body,
-  //         photo: url
-  //       })
-  //     }).then(res => res.json())
-  //       .then(data => {
-  //         if (data.error) {
-  //           M.toast({
-  //             html: data.error,
-  //             classes: "#c62828 red darken-3",
-  //           });
-  //         } else {
-  //           M.toast({
-  //             html: "Post created successfully",
-  //             classes: "#2e7d32 green darken-3",
-  //           });
-  //         }
-  //       })
-  //   }
-  // }, [url])
+  useEffect(() => {
+    if (url) {
+      fetch("/posts/create", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("usertoken")
+        },
+        body: JSON.stringify({
+          title,
+          body,
+          photo: url
+        })
+      }).then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            M.toast({
+              html: data.error,
+              classes: "#c62828 red darken-3",
+            });
+          } else {
+            M.toast({
+              html: "Post created successfully",
+              classes: "#2e7d32 green darken-3",
+            });
+            history.push('/')
+          }
+        })
+    }
+  }, [url])
 
 
   const addPost = () => {
@@ -57,31 +58,32 @@ const CreatePost = () => {
       })
       .catch(err => console.log(err))
       
-    fetch("/posts/create", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("usertoken")
-      },
-      body: JSON.stringify({
-        title,
-        body,
-        photo: url
-      })
-    }).then(res => res.json())
-      .then(data => {
-        if (data.error) {
-          M.toast({
-            html: data.error,
-            classes: "#c62828 red darken-3",
-          });
-        } else {
-          M.toast({
-            html: "Post created successfully",
-            classes: "#2e7d32 green darken-3",
-          });
-        }
-      })
+    // fetch("/posts/create", {
+    //   method: "post",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": "Bearer " + localStorage.getItem("usertoken")
+    //   },
+    //   body: JSON.stringify({
+    //     title,
+    //     body,
+    //     photo: url
+    //   })
+    // }).then(res => res.json())
+    //   .then(data => {
+    //     if (data.error) {
+    //       M.toast({
+    //         html: data.error,
+    //         classes: "#c62828 red darken-3",
+    //       });
+    //     } else {
+    //       M.toast({
+    //         html: "Post created successfully",
+    //         classes: "#2e7d32 green darken-3",
+    //       });
+    //       history.push('/')
+    //     }
+    //   })
 
 
 
