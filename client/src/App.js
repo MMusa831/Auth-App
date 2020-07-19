@@ -23,7 +23,7 @@ const Routing = () => {
       dispatch({ type: "USER", payload: user })
       history.push('/')          
     }else{ 
-      if(!history.location.pathname.startsWith('/confirm/:token'))
+      if(!history.location.pathname.startsWith('/confirm'))
       history.push('/login')
     }
   }, [])
@@ -35,7 +35,7 @@ const Routing = () => {
         <Route path="/register" component={Register} />
         <Route path="/profile" component={Profile} />
         <Route path="/createpost" component={CreatePost} />
-        <Route path="/confirm/:token" component={CreatePost} />
+        <Route path="/confirm/:token" component={Confirm} />
       </Switch>
     </div>
   );
