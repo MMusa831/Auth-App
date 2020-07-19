@@ -9,13 +9,20 @@ function Confirm() {
     const { token } = useParams();
     console.log(token);
   useEffect(()=> {
+      
+      fetch(`/users/test`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.error);
+        })
+        .catch((err) => console.log(err));
 
-      fetch(`/users/activate/${token}`)
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data.success);
-       })
-       .catch((err) => console.log(err));
+    //   fetch(`/users/activate/${token}`)
+    //    .then((res) => res.json())
+    //    .then((data) => {
+    //      console.log(data.success);
+    //    })
+    //    .catch((err) => console.log(err));
   }, [])
     // const token = useParams();
     // const Token = token.token
