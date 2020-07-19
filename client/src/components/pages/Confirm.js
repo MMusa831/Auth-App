@@ -6,18 +6,15 @@ function Confirm() {
     const history = useHistory()
     const {token} = useParams();
      console.log(token);
-    const ConfirmEmail = (token) => {
+    const ConfirmEmail = ({token}) => {
         
-       Axios.get(`/activate/${token}`)
+       Axios.get(`/activate/${{token}}`)
        .then(() => {
          return history.push('/login')
           
        })
     }
-    // export const attemptGetConfirmation = (token) => (dispatch) =>
-    //   getConfirmation(token).then(() => {
-    //     return dispatch(push("/login"));
-    //   });
+    
     return (
         <div>
             <h1>Confirmation Page</h1>
