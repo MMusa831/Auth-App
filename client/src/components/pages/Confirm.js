@@ -8,26 +8,28 @@ function Confirm() {
     const history = useHistory()
     const { token } = useParams();
   //  console.log(token);
-    useEffect(()=> {
-    //    Axios.get(`/users/test`)
-    //    .then((data) => {
-    //        if (data.error) {
-    //        console.log("not ok");
-    //       } else {
-    //            console.log(data.message);                         
-    //        }
-    //    });
-                     fetch(`/users/activate/${token}`, {
-                       headers: {
-                         "Content-Type": "application/json",
-                       },
-                     })
-                       .then((res) => res.json())
-                       .then((data) => {
-                         console.log("sign up success");
-                       })
-                       .catch((err) => console.log(err.error));
-                 }, [])
+    useEffect(() => {
+      fetch(`/users/activate/${token}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            M.toast({
+              html: data.error,
+              classes: "#c62828 red darken-3",
+            });
+          } else {
+            M.toast({
+              html: data.message,
+              classes: "#2e7d32 green darken-3",
+            });
+          }
+        })
+        .catch((err) => console.log(err));
+    }, []);
     // const token = useParams();
     // const Token = token.token
     //  console.log(Token);
