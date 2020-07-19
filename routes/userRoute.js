@@ -74,7 +74,7 @@ router.post("/create", async (req, res) => {
 });
 // Test route
 router.get('/test',( req, res)=> {
-    res.json({ error: "This is test route!" });
+    res.json({ message: "This is test route!" });
 })
 
 // Activate route

@@ -12,9 +12,9 @@ function Confirm() {
                       Axios.get(`/users/test`)
                       .then((data) => {
                         if (data.error) {
-                          console.log(data.error);
+                          console.log("not ok");
                         } else {
-                            console.log('ok');                         
+                            console.log(data.message);                         
                         }
                       });
                    //   fetch(`/users/activate/${token}`)
