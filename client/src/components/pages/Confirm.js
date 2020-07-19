@@ -10,10 +10,11 @@ function Confirm() {
      console.log(Token);
     const ConfirmEmail = (token) => {
         
-       Axios.get(`/activate/${token.token}`).then((res) => {
-         if (res.error) {
-           console.log(res.error);
+       Axios.get(`/activate/${Token}`).then((res) => {
+         if (!Token) {
+           console.log('token is not valid!');
          } else {
+             console.log("welcome!");
            history.push("/login");
          }
        });
