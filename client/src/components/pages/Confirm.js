@@ -15,7 +15,7 @@ function Confirm() {
        .then((data) => {
          console.log(data.success);
        })
-       .catch((err) => notify.show(err));
+       .catch((err) => console.log(err));
   }, [])
     // const token = useParams();
     // const Token = token.token
