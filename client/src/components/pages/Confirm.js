@@ -8,21 +8,21 @@ function Confirm() {
     const history = useHistory()
     const { token } = useParams();
     console.log(token);
-  useEffect(()=> {
-                      Axios.get(`/users/test`)
+    useEffect(()=> {
+    //    Axios.get(`/users/test`)
+    //    .then((data) => {
+    //        if (data.error) {
+    //        console.log("not ok");
+    //       } else {
+    //            console.log(data.message);                         
+    //        }
+    //    });
+                     fetch(`/users/test`)
+                      .then((res) => res.json())
                       .then((data) => {
-                        if (data.error) {
-                          console.log("not ok");
-                        } else {
-                            console.log(data.message);                         
-                        }
-                      });
-                   //   fetch(`/users/activate/${token}`)
-                   //    .then((res) => res.json())
-                   //    .then((data) => {
-                   //      console.log(data.success);
-                   //    })
-                   //    .catch((err) => console.log(err));
+                        console.log(data.message);
+                      })
+                      .catch((err) => console.log(err));
                  }, [])
     // const token = useParams();
     // const Token = token.token
