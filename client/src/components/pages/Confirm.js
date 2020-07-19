@@ -10,7 +10,7 @@ function Confirm() {
      console.log(Token);
     const ConfirmEmail = (token) => {
         
-       Axios.get(`/activate/${Token}`).then((data) => {
+       Axios.get(`/users/activate/${Token}`).then((data) => {
          if (data.error) {
            console.log(data.error);
          } else {
