@@ -1,18 +1,23 @@
 import React from 'react'
 import Axios from 'axios'
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 function Confirm() {
+    const history = useHistory()
     const {token} = useParams();
      console.log(token);
-    const ConfirmEmail = () => {
+    const ConfirmEmail = (token) => {
         
        Axios.get(`/activate/${token}`)
-       .then(res => {
-
+       .then(() => {
+         return history.push('/login')
           
        })
     }
+    // export const attemptGetConfirmation = (token) => (dispatch) =>
+    //   getConfirmation(token).then(() => {
+    //     return dispatch(push("/login"));
+    //   });
     return (
         <div>
             <h1>Confirmation Page</h1>
