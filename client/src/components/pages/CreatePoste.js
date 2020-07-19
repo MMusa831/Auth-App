@@ -90,7 +90,7 @@ const CreatePost = () => {
   }
 
   return (
-    <div className="post-div">
+    <div className="post-div input-field">
       <div>
         <h3 className="post-head">Create your own Post</h3>
         <input
@@ -110,9 +110,19 @@ const CreatePost = () => {
           onChange={(e) => setBody(e.target.value)}
         />
       </div>
-      <div>
-        <input className="input" type="file" onChange={(e) => setImage(e.target.files[0])} />
+      <div className="file-field input-field">
+        <div className="btn">
+          <span>Upload image</span>
+          <input type="file" />
       </div>
+          <div className="file-path-wrapper">
+            <input className="file-path validate" type="text" />
+      </div>
+          </div>
+      
+      {/* <div>
+        <input className="input" type="file" onChange={(e) => setImage(e.target.files[0])} />
+      </div> */}
 
       <input type="submit" id="btn" value="Submit" onClick={() => addPost()} />
     </div>
