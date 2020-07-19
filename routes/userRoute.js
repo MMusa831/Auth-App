@@ -5,10 +5,16 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../auth/auth");
 const nodemailer = require("nodemailer");
+const sendGridTransport = require("nodemailer-sendgrid-transport");
 require("dotenv").config();
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+const transporter = nodemailer.createTransport(
+  sendGridTransport({
+    auth: {
+      api_key: process.env.SENDGRID_API_KEY,
+    },
+  })
+);
 // Register Route
 router.post("/create", async (req, res) => {
   try {
@@ -48,9 +54,14 @@ router.post("/create", async (req, res) => {
       password: hashedPassword,
       displayName,
     });
-    // const saved_user = await new_user.save();
-    // res.json(saved_user);
+    
     new_user.save().then((new_user) => {
+      transporter.sendMail({
+        to: new_user.email,
+        from: 'no-replay@gmail.com',
+        subject: "welcom",
+        html: "you sign up successfully"
+      })
       res.json({ message: "You singed up successfully" });
     });
   } catch (err) {
