@@ -109,7 +109,7 @@ function Register() {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>         
-        <input onClick={onSubmit} id="btn" value="Register" />
+        <input type="submit" onClick={onSubmit} id="btn" value="Register" />
           <Link className="link-toggle" to="/login">
             Already have account? Login from here
           </Link>
