@@ -17,7 +17,11 @@ function Confirm() {
     //            console.log(data.message);                         
     //        }
     //    });
-                     fetch(`/users/test`)
+                     fetch(`/users/test`, {
+                         headers: {
+                             "Content-Type": "application/json"
+                         }
+                     })
                       .then((res) => res.json())
                       .then((data) => {
                         console.log(data.message);
