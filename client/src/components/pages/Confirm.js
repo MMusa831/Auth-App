@@ -6,10 +6,11 @@ import { useParams, useHistory } from 'react-router-dom';
 function Confirm() {
     const history = useHistory()
     const token = useParams();
-     console.log(token);
+    const Token = token.token
+     console.log(Token);
     const ConfirmEmail = (token) => {
         
-       Axios.get(`/activate/${token}`).then((res) => {
+       Axios.get(`/activate/${Token}`).then((res) => {
          if (res.error) {
            console.log(res.error);
          } else {
