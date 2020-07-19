@@ -8,6 +8,7 @@ import Register from './components/pages/Register';
 import Profile from './components/pages/Profile'
 import UserContext from './components/context/Context'
 import CreatePost from './components/pages/CreatePoste'
+import Confirm from './components/pages/Confirm'
 import { reducer, initialState } from './reducers/userReducer'
 import Axios from 'axios';
 
@@ -22,10 +23,11 @@ const Routing = () => {
       dispatch({ type: "USER", payload: user })
       history.push('/')          
     }else{ 
+      if(!history.location.pathname.startsWith('/confirm'))
       history.push('/login')
     }
   }, [])
-  return(
+  return (
     <div className="app-container">
       <Switch>
         <Route exact path="/" component={Home} />
@@ -33,9 +35,10 @@ const Routing = () => {
         <Route path="/register" component={Register} />
         <Route path="/profile" component={Profile} />
         <Route path="/createpost" component={CreatePost} />
+        <Route path="/confirm/:token" component={CreatePost} />
       </Switch>
     </div>
-  )
+  );
 }
 function App() {
  

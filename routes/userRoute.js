@@ -62,10 +62,10 @@ router.post("/create", async (req, res) => {
      transporter.sendMail({
        to: new_user.email,
        from: "no-replay@gmail.com",
-       subject: "welcom",
+       subject: "Activate account link",
        html: `
            <h2>Pleast click on the link to activate your account</h2>
-          <a href="http://${req.headers.host}/users/activate/${token}">${req.headers.host}/${token}</a>`,
+          <a href="http://${req.headers.host}/confirm/${token}">Please click here to activate your account</a>`,
      });
     return res.json({
       message: "Email has been sent, please activate your account",

@@ -11,26 +11,7 @@ function Login() {
   const history = useHistory();
 
   const onSubmit = async (e) => {
-    // e.preventDefault();
-    // try{
-    //   const loginUser = { email, password };
-    //   const logRes = await Axios.post('/users/login', loginUser);
-
-    //   localStorage.setItem('usertoken', logRes.data.token)
-    //   localStorage.setItem('user', JSON.stringify(logRes.data.user))
-    //   dispatch({ type: "USER", payload: logRes.data.user})
-    //   history.push('/');
-    //    M.toast({
-    //      html: "you logged in successfully",
-    //      classes: "#2e7d32 green darken-3",
-    //    });
-    // } catch (err) {
-    //   err.response.data.msg &&
-    //     M.toast({
-    //       html: err.response.data.msg,
-    //       classes: "#c62828 red darken-3",
-    //     });
-    // }
+   
     fetch("/users/login", {
       method: "post",
       headers: {
