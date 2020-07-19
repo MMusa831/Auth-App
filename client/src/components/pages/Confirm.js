@@ -12,6 +12,7 @@ function Confirm() {
       fetch(`/users/activate/${token}`, {
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json",
         },
       })
         .then((res) => res.json())
@@ -26,28 +27,15 @@ function Confirm() {
               html: data.message,
               classes: "#2e7d32 green darken-3",
             });
+            history.push("/login");
           }
         })
         .catch((err) => console.log(err));
     }, []);
-    // const token = useParams();
-    // const Token = token.token
-    //  console.log(Token);
-    // const ConfirmEmail = (token) => {
         
-    //    Axios.get(`/users/activate/${Token}`).then((data) => {
-    //      if (data.error) {
-    //        console.log(data.error);
-    //      } else {
-    //          console.log(data.success);
-    //        history.push("/login");
-    //      }
-    //    });
-    // }
-    
     return (
         <div>
-            <h1>Confirmation Page</h1>
+            <h5 className="text-center">Confirmation Page</h5>
             {/* <button onClick={ConfirmEmail}>Click</button> */}
         </div>
     )

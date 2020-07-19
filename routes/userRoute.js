@@ -106,7 +106,7 @@ router.get("/activate/:token", (req, res) => {
               });
             }
             res.json({
-              message: "sign up success",
+              message: "sign up success please sign!!",
             });
           });
         });

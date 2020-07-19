@@ -10,7 +10,8 @@ function Home() {
     fetch("/posts/allPosts", {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("usertoken"),
+       " Accept": "application/json",
+       " Authorization": "Bearer " + localStorage.getItem("usertoken"),
       },
     })
       .then((res) => res.json())
