@@ -9,20 +9,13 @@ function Confirm() {
      console.log(token);
     const ConfirmEmail = ({token}) => {
         
-       Axios.get(`/activate/${{token}}`)
-       .then((res) => {
-           if (res.error) {
-          M.toast({
-            html: res.error,
-            classes: "#c62828 red darken-3",
-          });
-        }else{
-             M.toast({
-               html: res.success,
-               classes: "#c62828 red darken-3",
-             });
-        }
-    })
+       Axios.get(`/activate/${token}`).then((res) => {
+         if (res.error) {
+           console.log(res.error);
+         } else {
+           history.push("/login");
+         }
+       });
     }
     
     return (
