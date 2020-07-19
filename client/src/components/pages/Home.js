@@ -8,15 +8,6 @@ function Home() {
 
   useEffect(() => {
    
-    // Axios.get("/posts/allPosts", {
-    //   headers: { Authorization: "Bearer " + localStorage.getItem("usertoken") },
-    // }).then((result) => {
-    //     setData(JSON.parse(result.posts));
-    //     console.log(data)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
     fetch("/posts/allPosts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("usertoken"),

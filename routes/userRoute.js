@@ -16,14 +16,14 @@ router.post('/create', async (req, res) => {
 
     // validate
     if (!email || !password || !confirmPassword)
-      return res.status(400).json({ msg: 'Please Add all the fields!' })
+      return res.status(400).json({ error: 'Please Add all the fields!' })
     if (password.length < 6)
-      return res.status(400).json({ msg: 'Pasword must be at least 6 character long!' })
+      return res.status(400).json({ error: 'Pasword must be at least 6 character long!' })
     if (password !== confirmPassword)
-      return res.status(400).json({ msg: 'Your password and confirmation password are not match!' });
+      return res.status(400).json({ error: 'Your password and confirmation password are not match!' });
     const exist_user = await User.findOne({ email: email })
     if (exist_user)
-      return res.status(400).json({ msg: 'A user with this email already exist!' });
+      return res.status(400).json({ error: 'A user with this email already exist!' });
     if (!displayName) displayName = email;
     const salt = await bcrypt.genSalt()
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -32,8 +32,12 @@ router.post('/create', async (req, res) => {
       password: hashedPassword,
       displayName
     });
-    const saved_user = await new_user.save();
-    res.json(saved_user);
+    // const saved_user = await new_user.save();
+    // res.json(saved_user);
+    new_user.save()
+    .then(new_user => {
+      res.json({message: "You singed up successfully"})
+    })
   } catch (err) {
     console.log(err)
   }
