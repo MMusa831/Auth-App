@@ -6,21 +6,14 @@ import { useParams, useHistory } from 'react-router-dom';
 function Confirm() {
     const history = useHistory()
     const token = useParams();
-    const Token = token.token
-     console.log(Token);
+    
+     console.log(token.token);
     const ConfirmEmail = (token) => {
         
-       Axios.get(`/activate/${Token}`).then((data) => {
-         if (data.error) {
-           M.toast({
-             html: data.error,
-             classes: "#c62828 red darken-3",
-           });
+       Axios.get(`/activate/${token.token}`).then((res) => {
+         if (res.error) {
+           console.log(res.error);
          } else {
-              M.toast({
-                html: data.success,
-                classes: "#c62828 red darken-3",
-              });
            history.push("/login");
          }
        });
