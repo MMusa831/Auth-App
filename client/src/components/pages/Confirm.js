@@ -7,7 +7,7 @@ import { useParams, useHistory } from 'react-router-dom';
 function Confirm() {
     const history = useHistory()
     const { token } = useParams();
-    console.log(token);
+  //  console.log(token);
     useEffect(()=> {
     //    Axios.get(`/users/test`)
     //    .then((data) => {
@@ -17,16 +17,16 @@ function Confirm() {
     //            console.log(data.message);                         
     //        }
     //    });
-                     fetch(`/users/test`, {
-                         headers: {
-                             "Content-Type": "application/json"
-                         }
+                     fetch(`/users/activate/${token}`, {
+                       headers: {
+                         "Content-Type": "application/json",
+                       },
                      })
-                      .then((res) => res.json())
-                      .then((data) => {
-                        console.log(data.message);
-                      })
-                      .catch((err) => console.log(err));
+                       .then((res) => res.json())
+                       .then((data) => {
+                         console.log("sign up success");
+                       })
+                       .catch((err) => console.log(err.error));
                  }, [])
     // const token = useParams();
     // const Token = token.token

@@ -12,6 +12,7 @@ const Profile = () => {
   const fetchPost = () => {
     fetch("/posts/myPosts", {
       headers: {
+        "Content-Type": "application/json",
         "Authorization": "Bearer " + localStorage.getItem("usertoken")
       },
     })

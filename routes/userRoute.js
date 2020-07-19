@@ -73,9 +73,9 @@ router.post("/create", async (req, res) => {
   }
 });
 // Test route
-router.get('/test',( req, res)=> {
-    res.json({ message: "This is test route!" });
-})
+router.get("/test", (req, res) => {
+  res.json({ message: "This is test route!" });
+});
 
 // Activate route
 
@@ -99,14 +99,14 @@ router.get("/activate/:token", (req, res) => {
         let newUser = new User({ displayName, email, password });
         bcrypt.hash(password, 10, (err, hash) => {
           newUser.password = hash;
-          newUser.save((err, success) => {
+          newUser.save((err, message) => {
             if (err) {
               return res.status(400).json({
                 error: "Error while activating account",
               });
             }
             res.json({
-              success: "sign up success",
+              message: "sign up success",
             });
           });
         });

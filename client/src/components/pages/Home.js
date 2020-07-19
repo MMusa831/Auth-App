@@ -9,7 +9,8 @@ function Home() {
   useEffect(() => {
     fetch("/posts/allPosts", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("usertoken"),
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("usertoken"),
       },
     })
       .then((res) => res.json())
