@@ -54,16 +54,23 @@ router.post("/create", async (req, res) => {
       password: hashedPassword,
       displayName,
     });
-    
-    new_user.save().then((new_user) => {
-      transporter.sendMail({
-        to: new_user.email,
-        from: 'no-replay@gmail.com',
-        subject: "welcom",
-        html: "you sign up successfully"
-      })
-      res.json({ message: "You singed up successfully" });
+    const token = jwt.sign(
+      { displayName, email, password },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "20m" }
+    );
+     transporter.sendMail({
+       to: new_user.email,
+       from: "no-replay@gmail.com",
+       subject: "welcom",
+       html: `
+           <h2>Pleast click on the link to activate your account</h2>
+          <a href="http://${req.headers.host}/users/activate/${token}">${req.headers.host}/${token}</a>`,
+     });
+    return res.json({
+      message: "Email has been sent, please activate your account",
     });
+   
   } catch (err) {
     console.log(err);
   }
@@ -71,8 +78,7 @@ router.post("/create", async (req, res) => {
 
 // Activate route
 
-router.get("/activate/:token", (req, res) => {
-  // const { token } = req.body;
+router.get("/activate/:token", (req, res) => { 
   const token = req.params.token;
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
