@@ -1,6 +1,7 @@
 import React,{useEffect} from 'react'
 import Axios from 'axios'
 import M from "materialize-css";
+import { notify } from "react-notify-toast";
 import { useParams, useHistory } from 'react-router-dom';
 
 function Confirm() {
@@ -14,7 +15,7 @@ function Confirm() {
        .then((data) => {
          console.log(data.success);
        })
-       .catch((err) => console.log(err));
+       .catch((err) => notify.show(err));
   }, [])
     // const token = useParams();
     // const Token = token.token
