@@ -7,10 +7,17 @@ function Home() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    // Axios.get(URL, { headers: { Authorization: AuthStr } }).then(response => {
+    //   // If request is good...
+    //   console.log(response.data);
+    // })
+    //   .catch((error) => {
+    //     console.log('error 3 ' + error);
+    //   });
    
     fetch("/posts/allPosts", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("usertoken"),
+        "Authorization": "Bearer " + localStorage.getItem("usertoken")
       },
     })
       .then((res) => res.json())
@@ -21,32 +28,31 @@ function Home() {
   }, []);
   
   return (
-    <div>hello</div> 
-    // <div className="home">
-    //   {data.map((item) => {
-    //     return (
-    //       <div className="card" key={item._id}>
-    //         <div className="card-image">
-    //           <img src={item.photo} />
-    //         </div>
-    //         <div className="card-content">
-    //           <i className="icons far fa-thumbs-up"></i>
-    //           <i className="icons far fa-thumbs-down"></i>             
-    //           <h6 className="post-title">{item.title}</h6>
-    //           <p>{item.body}</p>
-    //           <p className="posted-by">
-    //             Created By :{item.postedBy.displayName}
-    //           </p>
-    //           <input
-    //             id="standard-basic"
-    //             className="input"
-    //             placeholder="Add comment"
-    //           />
-    //         </div>
-    //       </div>
-    //     );
-    //   })}
-    // </div>   
+    <div className="home">
+      {data.map((item) => {
+        return (
+          <div className="card" key={item._id}>
+            <div className="card-image">
+              <img src={item.photo} />
+            </div>
+            <div className="card-content">
+              <i className="icons far fa-thumbs-up"></i>
+              <i className="icons far fa-thumbs-down"></i>             
+              <h6 className="post-title">{item.title}</h6>
+              <p>{item.body}</p>
+              <p className="posted-by">
+                Created By :{item.postedBy.displayName}
+              </p>
+              <input
+                id="standard-basic"
+                className="input"
+                placeholder="Add comment"
+              />
+            </div>
+          </div>
+        );
+      })}
+    </div>   
   );
 }
 
