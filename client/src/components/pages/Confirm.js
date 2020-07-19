@@ -6,7 +6,7 @@ import { useParams, useHistory } from 'react-router-dom';
 function Confirm() {
     const history = useHistory()
     const { token } = useParams();
-   // console.log(token);
+    console.log(token.token);
   useEffect(()=> {
 
      fetch(`/users/activate/${token}`)
