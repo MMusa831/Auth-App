@@ -1,5 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
+import M from "materialize-css";
 import { useParams, useHistory } from 'react-router-dom';
 
 function Confirm() {
@@ -9,10 +10,19 @@ function Confirm() {
     const ConfirmEmail = ({token}) => {
         
        Axios.get(`/activate/${{token}}`)
-       .then(() => {
-         return history.push('/login')
-          
-       })
+       .then((res) => {
+           if (res.error) {
+          M.toast({
+            html: res.error,
+            classes: "#c62828 red darken-3",
+          });
+        }else{
+             M.toast({
+               html: res.success,
+               classes: "#c62828 red darken-3",
+             });
+        }
+    })
     }
     
     return (
