@@ -13,8 +13,7 @@ function Confirm() {
        fetch(`/users/activate/${token}`
 
     ).then((res) => res.json())
-        .then((data) => {
-            console.log(data)
+        .then((data) => {           
           if (data.error) {
               console.log(data.error);
           } else {
@@ -24,12 +23,6 @@ function Confirm() {
         })
         .catch((err) => console.log(err))
   }, []);
-//   const getResponse = async () => {
-//     const response = await fetch(`/users/test`);
-//     console.log(response);
-//     const data = await JSON.stringify(response);
-//     console.log(data);
-//   };
 
   return (
     <div>

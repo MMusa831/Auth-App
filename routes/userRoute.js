@@ -63,7 +63,7 @@ router.post("/create", async (req, res) => {
       subject: "Activate account link",
       html: `
            <h2>Pleast click on the link to activate your account</h2>
-          <a href="http://localhost:3000/confirm/${token}">Please click here to activate your account</a>`,
+          <a href="http://${req.headers.host}/confirm/${token}">Please click here to activate your account</a>`,
     });
     return res.json({
       message: "Email has been sent, please activate your account",
