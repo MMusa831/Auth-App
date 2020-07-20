@@ -10,7 +10,8 @@ const path = require("path");
 
 const app = express();
 app.use(cors());
-app.use(express.json({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 
 // Database Connection
 const db = process.env.MONGO_DB_URI || process.env.MONGODB_URI;
