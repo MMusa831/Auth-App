@@ -14,7 +14,7 @@ function Confirm() {
 
     ).then(response => {           
           if (response.ok) {
-              console.log(response);
+              console.log(response.json());
           } else {
               console.log(response.error);
             history.push("/login");
