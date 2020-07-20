@@ -26,8 +26,9 @@ function Confirm() {
     }, []);
     const getResponse = async () => {
       const response = await fetch(`/users/test`);
+       console.log(response);
       const data = await response.json();
-      console.log(typeof(data))
+      console.log(data)
     };
         
     return (
