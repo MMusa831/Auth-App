@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const bodyParser = require('body-parser')
 const port = process.env.PORT || 8080;
 const path = require("path");
 
@@ -33,7 +34,7 @@ if (process.env.NODE_ENV === "production") {
 require("./models/postModel");
 require("./models/userModel");
 
-app.use(express.json());
+app.use(bodyParser);
 
 app.use("/users", require("./routes/userRoute"));
 app.use("/posts", require("./routes/postRoute"));
