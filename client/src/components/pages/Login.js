@@ -28,7 +28,10 @@ function Login() {
          });
        }
      })
-     .catch((err) => console.log(err))
+     .catch((err) => M.toast({
+       html: err,
+       classes: "#c62828 red darken-3",
+     }))
  }  
   const onSubmit = async (e) => {
    
