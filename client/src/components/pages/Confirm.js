@@ -9,13 +9,7 @@ function Confirm() {
     const { token } = useParams(); 
 
     useEffect(() => {
-        fetch('/usres/test')
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        getResponse();
     //    fetch(`/users/activate/${token}`
     
     // ).then((res) => res.json())
@@ -30,6 +24,11 @@ function Confirm() {
     //     })
     //     .catch((err) => console.log(err))
     }, []);
+    const getResponse = async () => {
+      const response = await fetch(`/users/test`);
+      const data = await response.json();
+      console.log(data.message)
+    };
         
     return (
         <div>
