@@ -8,36 +8,32 @@ function Confirm() {
     const history = useHistory()
     const { token } = useParams(); 
     useEffect(() => {
-       fetch(`/users/test`
-    //     headers: {
-    //      // "Content-Type": "application/json",
-    //       "Accept": "application/json",
-    //     },
-    //   })
-    ).then((res) => res.json())
-        .then((data) => {
-            console.log(data)
-          if (data.error) {
-              console.log(data.error);
-            // M.toast({
-            //   html: data.error,
-            //   classes: "#c62828 red darken-3",
-            // });
-          } else {
-              console.log(data.message);
-            // M.toast({
-            //   html: data.message,
-            //   classes: "#2e7d32 green darken-3",
-            // });
-            history.push("/login");
-          }
+        Axios.get('/usres/test')
+        .then(res => {
+            console.log(res)
         })
-        .catch((err) => console.log(err))
+        .catch(err => {
+            console.log(err)
+        })
+    //    fetch(`/users/activate/${token}`
+    
+    // ).then((res) => res.json())
+    //     .then((data) => {
+    //         console.log(data)
+    //       if (data.error) {
+    //           console.log(data.error);           
+    //       } else {
+    //           console.log(data.message);           
+    //         history.push("/login");
+    //       }
+    //     })
+    //     .catch((err) => console.log(err))
     }, []);
         
     return (
         <div>
-            <h5 className="text-center">Confirmation Page</h5>          
+            <h5 className="text-center">Confirmation Page</h5>
+          
         </div>
     )
 }
