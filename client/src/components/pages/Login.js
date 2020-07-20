@@ -13,19 +13,20 @@ function Login() {
  const test = () => {
    fetch(`/users/test`
 
-   )
-     .then((res) => res.json())
+   )  
      .then((data) => {
        if (data.error) {
-         M.toast({
-           html: data.error,
-           classes: "#c62828 red darken-3",
-         });
+         console.log(data.error)
+        //  M.toast({
+        //    html: data.error,
+        //    classes: "#c62828 red darken-3",
+        //  });
        } else {
-         M.toast({
-           html: data.message,
-           classes: "#2e7d32 green darken-3",
-         });
+         console.log(data.message)
+        //  M.toast({
+        //    html: data.message,
+        //    classes: "#2e7d32 green darken-3",
+        //  });
        }
      })
      .catch((err) => M.toast({
