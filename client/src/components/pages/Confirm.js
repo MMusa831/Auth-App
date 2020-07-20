@@ -6,17 +6,17 @@ import { useParams, useHistory } from 'react-router-dom';
 
 function Confirm() {
     const history = useHistory()
-    const { token } = useParams();
-  //  console.log(token);
+    const { token } = useParams(); 
     useEffect(() => {
-      fetch(`/users/activate/${token}`, {
-        headers: {
-         // "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-      })
-        .then((res) => res.json())
+       fetch(`/users/activate/${token}`
+    //     headers: {
+    //      // "Content-Type": "application/json",
+    //       "Accept": "application/json",
+    //     },
+    //   })
+    ).then((res) => res.text())
         .then((data) => {
+            console.log(data)
           if (data.error) {
             M.toast({
               html: data.error,
