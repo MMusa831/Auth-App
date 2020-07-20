@@ -11,29 +11,23 @@ function Login() {
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
  const test = () => {
-   fetch(`/users/test`
-
-   )  
-     .then((data) => {
-       if (data.error) {
-         console.log(data.error)
-        //  M.toast({
-        //    html: data.error,
-        //    classes: "#c62828 red darken-3",
-        //  });
-       } else {
-         console.log(data.message)
-        //  M.toast({
-        //    html: data.message,
-        //    classes: "#2e7d32 green darken-3",
-        //  });
+   fetch(
+     "/users/test",
+     {
+       method: 'GET',      
+     }
+   ).then((response) => {
+       if (!response.ok) {
+         console.log('Error - 404 Not Found')
        }
-     })
-     .catch((err) => M.toast({
-       html: err,
-       classes: "#c62828 red darken-3",
-     }))
- }  
+
+       return response.json()     
+     }).then(data => {
+       console.log(data)
+     })       
+     .catch((err) =>console.log(err))
+ }
+  
   const onSubmit = async (e) => {
    
     fetch("/users/login", {
