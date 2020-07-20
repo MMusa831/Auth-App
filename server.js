@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
 require("./models/postModel");
 require("./models/userModel");
 
-app.use(express.json());
+//app.use(express.json());
 
 app.use("/users", require("./routes/userRoute"));
 app.use("/posts", require("./routes/postRoute"));

@@ -105,8 +105,8 @@ router.get("/activate/:token", (req, res) => {
                 error: "Error while activating account",
               });
             }
-            res.json({
-              message: "sign up success please sign!!",
+            res.send({
+              message: "You are registered successfully please login!!",
             });
           });
         });
