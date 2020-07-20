@@ -74,7 +74,7 @@ router.post("/create", async (req, res) => {
 });
 // Test route
 router.get("/test", (req, res) => {
-  res.json({ message: "This is test route!" });
+  res.json( "This is test route!" );
 });
 
 // Activate route
@@ -105,7 +105,7 @@ router.get("/activate/:token", (req, res) => {
                 error: "Error while activating account",
               });
             }
-            res.send({
+            res.json({
               message: "You are registered successfully please login!!",
             });
           });

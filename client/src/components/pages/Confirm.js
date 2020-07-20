@@ -8,7 +8,7 @@ function Confirm() {
     const history = useHistory()
     const { token } = useParams(); 
     useEffect(() => {
-       fetch(`/users/activate/${token}`
+       fetch(`/users/test`
     //     headers: {
     //      // "Content-Type": "application/json",
     //       "Accept": "application/json",
@@ -37,8 +37,7 @@ function Confirm() {
         
     return (
         <div>
-            <h5 className="text-center">Confirmation Page</h5>
-            {/* <button onClick={ConfirmEmail}>Click</button> */}
+            <h5 className="text-center">Confirmation Page</h5>          
         </div>
     )
 }
