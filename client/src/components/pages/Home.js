@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Tooltip, Icon } from "antd";
-import UserContext from "../context/Context";
 import Axios from "axios";
 
 function Home() {
@@ -9,9 +7,7 @@ function Home() {
   useEffect(() => {
     fetch("/posts/allPosts", {
       headers: {
-        "Content-Type": "application/json",
-       " Accept": "application/json",
-       " Authorization": "Bearer " + localStorage.getItem("usertoken"),
+        "Authorization": "Bearer " + localStorage.getItem("usertoken"),
       },
     })
       .then((res) => res.json())

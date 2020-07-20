@@ -9,27 +9,27 @@ function Confirm() {
   const { token } = useParams();
 
   useEffect(() => {
-    getResponse();
-    //    fetch(`/users/activate/${token}`
+   // getResponse();
+       fetch(`/users/activate/${token}`
 
-    // ).then((res) => res.json())
-    //     .then((data) => {
-    //         console.log(data)
-    //       if (data.error) {
-    //           console.log(data.error);
-    //       } else {
-    //           console.log(data.message);
-    //         history.push("/login");
-    //       }
-    //     })
-    //     .catch((err) => console.log(err))
+    ).then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+          if (data.error) {
+              console.log(data.error);
+          } else {
+              console.log(data.message);
+            history.push("/login");
+          }
+        })
+        .catch((err) => console.log(err))
   }, []);
-  const getResponse = async () => {
-    const response = await fetch(`/users/test`);
-    console.log(response);
-    const data = await JSON.stringify(response);
-    console.log(data);
-  };
+//   const getResponse = async () => {
+//     const response = await fetch(`/users/test`);
+//     console.log(response);
+//     const data = await JSON.stringify(response);
+//     console.log(data);
+//   };
 
   return (
     <div>

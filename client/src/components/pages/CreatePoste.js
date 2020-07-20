@@ -1,64 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import M from "materialize-css";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 const CreatePost = () => {
-
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState('');
+  const [body, setBody] = useState("");
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
   const history = useHistory();
 
-  useEffect(() => {
-    if (url) {
-      fetch("/posts/create", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + localStorage.getItem("usertoken")
-        },
-        body: JSON.stringify({
-          title,
-          body,
-          photo: url
-        })
-      }).then(res => res.json())
-        .then(data => {
-          if (data.error) {
-            M.toast({
-              html: data.error,
-              classes: "#c62828 red darken-3",
-            });
-          } else {
-            M.toast({
-              html: "Post created successfully",
-              classes: "#2e7d32 green darken-3",
-            });
-            history.push('/')
-          }
-        })
-    }
-  }, [url])
-
+  // useEffect(() => {
+  //   if (url) {
+  //     fetch("/posts/create", {
+  //       method: "post",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Authorization": "Bearer " + localStorage.getItem("usertoken")
+  //       },
+  //       body: JSON.stringify({
+  //         title,
+  //         body,
+  //         photo: url
+  //       })
+  //     }).then(res => res.json())
+  //       .then(data => {
+  //         if (data.error) {
+  //           M.toast({
+  //             html: data.error,
+  //             classes: "#c62828 red darken-3",
+  //           });
+  //         } else {
+  //           M.toast({
+  //             html: "Post created successfully",
+  //             classes: "#2e7d32 green darken-3",
+  //           });
+  //           history.push('/')
+  //         }
+  //       })
+  //   }
+  // }, [url])
 
   const addPost = () => {
-    const data = new FormData()
+    const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "blogPost")
-    data.append("cloud_name", "daitevpn7")
+    data.append("upload_preset", "blogPost");
+    data.append("cloud_name", "daitevpn7");
     fetch("https://api.cloudinary.com/v1_1/daitevpn7/image/upload", {
       method: "post",
-      body: data
+      body: data,
     })
-      .then(res => res.json())
-      .then(data => {
-        setUrl(data.url)
+      .then((res) => res.json())
+      .then((data) => {
+        setUrl(data.url);
       })
-      .catch(err => console.log(err))
-      
-   }
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="post-div input-field">
@@ -85,12 +82,12 @@ const CreatePost = () => {
         <div className="btn">
           <span>Upload image</span>
           <input type="file" />
+        </div>
+        <div className="file-path-wrapper">
+          <input className="file-path validate" type="text" />
+        </div>
       </div>
-          <div className="file-path-wrapper">
-            <input className="file-path validate" type="text" />
-      </div>
-          </div>
-      
+
       {/* <div>
         <input className="input" type="file" onChange={(e) => setImage(e.target.files[0])} />
       </div> */}
@@ -98,5 +95,5 @@ const CreatePost = () => {
       <input type="submit" id="btn" value="Submit" onClick={() => addPost()} />
     </div>
   );
-}
+};
 export default CreatePost;
