@@ -27,14 +27,21 @@ mongoose
   })
   .then(() => console.log("Database is connected!"))
   .catch((err) => console.log(err));
-  app.use(express.static(path.join(__dirname, "/client/build")));
 
 if (process.env.NODE_ENV === "production") {
-  //app.use(express.static("client/build"));
+  const root = require('path').join(__dirname, 'client', 'build')
+  app.use(express.static(root));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
+    res.sendFile('index.html', { root });
+  })
 }
+
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("client/build"));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 // Set up routes
 
 require("./models/postModel");
