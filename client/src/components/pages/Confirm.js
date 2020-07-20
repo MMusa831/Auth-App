@@ -10,8 +10,7 @@ function Confirm() {
 
   useEffect(() => {
     // getResponse();
-    fetch(`/users/test`)
-      .then((res) => res.json())
+    fetch(`/users/test`)      
       .then((data) => {
         if (data.error) {
           console.log(data.error);
