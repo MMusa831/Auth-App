@@ -21,7 +21,7 @@ function Login() {
          console.log('Error - 404 Not Found')
        }
 
-       return response.json()     
+       return response.text()     
      }).then(data => {
        console.log(data)
      })       
