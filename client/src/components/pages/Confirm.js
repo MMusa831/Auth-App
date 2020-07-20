@@ -7,9 +7,9 @@ import { useParams, useHistory } from 'react-router-dom';
 function Confirm() {
     const history = useHistory()
     const { token } = useParams(); 
-    
+
     useEffect(() => {
-        Axios.get('/usres/test')
+        fetch('/usres/test')
         .then(res => {
             console.log(res)
         })
