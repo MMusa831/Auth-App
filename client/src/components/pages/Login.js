@@ -10,7 +10,26 @@ function Login() {
   const [password, setPassword] = useState();
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
+ const test = () => {
+   fetch(`/users/test`
 
+   )
+     .then((res) => res.json())
+     .then((data) => {
+       if (data.error) {
+         M.toast({
+           html: data.error,
+           classes: "#c62828 red darken-3",
+         });
+       } else {
+         M.toast({
+           html: data.message,
+           classes: "#2e7d32 green darken-3",
+         });
+       }
+     })
+     .catch((err) => console.log(err))
+ }  
   const onSubmit = async (e) => {
    
     fetch("/users/login", {
@@ -69,6 +88,7 @@ function Login() {
         <Link className="link-toggle" to="/register">
           You have not account? Register here
         </Link>
+        <input type="submit" id="btn" value="Test" onClick={test} />
       </div>
     </div>
   );
