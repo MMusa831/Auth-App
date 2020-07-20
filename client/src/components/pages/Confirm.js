@@ -8,7 +8,7 @@ function Confirm() {
   const history = useHistory();
   const { token } = useParams();
 
-  useEffect(() => {
+   useEffect(() => {
     // getResponse();
     fetch(`/users/test`)
       .then((res) => res.json())
