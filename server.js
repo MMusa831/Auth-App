@@ -10,8 +10,7 @@ const path = require("path");
 
 const app = express();
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.json({ extended: false }));
 
 // Database Connection
 const db = process.env.MONGO_DB_URI || process.env.MONGODB_URI;
@@ -25,12 +24,12 @@ mongoose
   .then(() => console.log("Database is connected!"))
   .catch((err) => console.log(err));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("client/build"));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 // Set up routes
 
 require("./models/postModel");
