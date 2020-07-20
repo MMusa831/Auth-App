@@ -12,12 +12,11 @@ function Confirm() {
    // getResponse();
        fetch(`/users/test`
 
-    ).then((res) => res.json())
-        .then((data) => {           
-          if (data.error) {
-              console.log(data.error);
+    ).then(response => {           
+          if (response.ok) {
+              console.log(response);
           } else {
-              console.log(data.message);
+              console.log(response.error);
             history.push("/login");
           }
         })
