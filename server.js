@@ -10,6 +10,11 @@ const path = require("path");
 
 const app = express();
 app.use(cors());
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 
 // Database Connection
 const db = process.env.MONGO_DB_URI || process.env.MONGODB_URI;
@@ -34,7 +39,7 @@ if (process.env.NODE_ENV === "production") {
 require("./models/postModel");
 require("./models/userModel");
 
-app.use(bodyParser);
+app.use(bodyParser.json());
 
 app.use("/users", require("./routes/userRoute"));
 app.use("/posts", require("./routes/postRoute"));
