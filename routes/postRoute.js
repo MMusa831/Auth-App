@@ -10,7 +10,10 @@ const Post = mongoose.model("Post");
 router.post("/create", auth, async (req, res) => {
   try {
     const { title, body, photo } = req.body;
-    if (!title || !body ) {
+     if (!photo) {
+       return res.status(422).json({ error: "Please upload photo!" });
+     }
+    if (!title || !body || !photo) {
       return res.status(422).json({ error: "Please fill all fields!" });
     }
     const new_post = new Post({
