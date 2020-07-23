@@ -76,6 +76,11 @@ body {
 .post-title {
   font-weight: 700;
 }
+.post-head {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+}
 .icons {
   font-size: 30px;
   color: #080808;
