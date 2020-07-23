@@ -223,7 +223,7 @@ body {
   height: 200px;
   width: 200px; 
   border-radius: 50%;
-  margin: auto !important;   
+  margin: 0px 20% !important;   
 }
 .profile-name {
   text-align: center;

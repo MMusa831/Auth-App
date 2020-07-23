@@ -55,7 +55,12 @@ const CreatePost = () => {
       .then((data) => {
         setUrl(data.url);
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {       
+          M.toast({
+            html:" error.message",
+            classes: "#c62828 red darken-3",
+          });        
+      });
   };
 
   return (
