@@ -82,17 +82,12 @@ const CreatePost = () => {
       <div className="file-field input-field">
         <div className="btn">
           <span>Upload image</span>
-          <input type="file" />
+          <input type="file" onChange={(e) => setImage(e.target.files[0])} />
         </div>
         <div className="file-path-wrapper">
           <input className="file-path validate" type="text" />
         </div>
       </div>
-
-      {/* <div>
-        <input className="input" type="file" onChange={(e) => setImage(e.target.files[0])} />
-      </div> */}
-
       <input type="submit" id="btn" value="Submit" onClick={() => addPost()} />
     </div>
   );

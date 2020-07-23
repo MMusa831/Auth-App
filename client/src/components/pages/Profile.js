@@ -4,15 +4,15 @@ import UserContext from "../context/Context";
 const Profile = () => {
   const [posts, setPost] = useState([]);
   const { state, dispatch } = useContext(UserContext);
-  const user = JSON.parse(localStorage.getItem('user'))
- 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     fetchPost();
   }, []);
   const fetchPost = () => {
     fetch("/posts/myPosts", {
-      headers: {        
-        "Authorization": "Bearer " + localStorage.getItem("usertoken"),
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("usertoken"),
       },
     })
       .then((res) => res.json())

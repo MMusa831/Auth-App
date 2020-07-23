@@ -11,16 +11,6 @@ function Login() {
   const [password, setPassword] = useState();
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
-useEffect(()=>{
-  fetch("/users/getRouter")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => console.log(error));
-},[])
-   
- 
   
   const onSubmit = async (e) => {
    
