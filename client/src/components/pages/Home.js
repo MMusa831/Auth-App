@@ -25,12 +25,14 @@ function Home() {
             <div className="card-image">
               <img src={item.photo} />
             </div>
-            <div className="card-content">              
+            <div className="card-content">
               <h6 className="post-title">{item.title}</h6>
               <p>{item.body}</p>
               <p className="posted-by">
-                Created By :{item.postedBy.displayName}
+                Created By: {item.postedBy.displayName}<br></br>
+                 at: {new Date(item.date).toDateString()}
               </p>
+
               <input
                 id="standard-basic"
                 className="input"

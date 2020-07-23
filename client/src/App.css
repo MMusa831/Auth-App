@@ -31,9 +31,7 @@ ul,
 ol {
   margin: 1em 0;
 }
-.navabr {
-  background-color: tomato;
-}
+
 /* General style*/
 body {
   font-family: "Roboto", sans-serif;
@@ -58,12 +56,6 @@ body {
 .title:link {
   text-decoration: none;
   cursor: pointer;
-}
-.userLink {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  margin: auto 1em;
 }
 .gallery {
   display: flex;
@@ -114,14 +106,11 @@ body {
   max-width: 600px;
   margin: 30vh auto;   
 }
-.navbarItem .linkItems{
+.linkItems{
   font-family: "Roboto";
   font-size: 1.2rem;
   color: #0c0c0c;
   margin: auto 1em;
-}
-.navbarItem {
-  margin-right: 2em;
 }
 .linkItems:link {
   text-decoration: none;
@@ -196,4 +185,11 @@ body {
     margin: 25vh auto;
     justify-content: center;
   }
+  .linkItems{
+  font-family: "Roboto";
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0c0c0c;
+  margin: auto 0.8em;
+}
 }

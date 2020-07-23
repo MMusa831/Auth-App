@@ -18,7 +18,7 @@ router.post("/create", auth, async (req, res) => {
       body,
       photo,     
       postedBy: req.user,
-    });
+      });
     const saved_post = await new_post.save();
     res.json(saved_post);
   } catch (err) {
