@@ -29,7 +29,7 @@ function Home() {
               <h6 className="post-title">{item.title}</h6>
               <p>{item.body}</p>
               <p className="posted-by">
-                Created By: {item.postedBy.displayName}<br></br>
+                Created By: {item.postedBy.displayName}<br/>
                  at: {new Date(item.date).toDateString()}
               </p>
 
