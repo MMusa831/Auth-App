@@ -119,6 +119,19 @@ body {
   text-decoration: none;
  
 }
+.profile-outer-div {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #636e72;
+}
+.profile-image {
+  height: 200px;
+  width: 200px; 
+  border-radius: 50%;  
+}
 .container {
   margin: 0;
   padding: 0;
@@ -191,5 +204,30 @@ body {
   font-weight: 700;
   color: #0c0c0c;
   margin: auto 0.8em;
+}
+.profile-outer-div { 
+  width: 100%;
+  display: block;
+  align-items: center;
+  margin: 20px auto;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #636e72;
+}
+
+.profile-image {
+  height: 200px;
+  width: 200px; 
+  border-radius: 50%;
+  margin: auto !important;   
+}
+.profile-name {
+  text-align: center;
+}
+.app-container {
+  width: 90%;
+}
+.items {
+  width: 80%; 
+  margin: 20px auto;
 }
 }

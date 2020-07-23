@@ -24,36 +24,15 @@ const Profile = () => {
 
   return (
     <div>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-around",
-          margin: "20px 0px",
-          paddingBottom: "20px",
-          borderBottom: "1px solid #636e72",
-        }}
-      >
-        <div>
+      <div className="profile-outer-div">
+        
           <img
-            style={{ height: "200px", width: "200px", borderRadius: "50%" }}
+            className="profile-image"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQsiLJK7jTvBh8VZfehWLIXdlHn7UzlgSbHmw&usqp=CAU"
           />
-        </div>
-        <div style={{ marginTop: "20px" }}>
+      
+        <div className="profile-name">
           <h3>{user.displayName}</h3>
-          <div
-            style={{
-              display: "flex",
-              marginTop: "30px",
-              justifyContent: "space-between",
-              width: "108%",
-            }}
-          >
-            <h6>40 posts</h6>
-            <h6>40 followers</h6>
-            <h6>40 following</h6>
-          </div>
         </div>
       </div>
 
