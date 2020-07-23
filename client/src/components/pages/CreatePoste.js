@@ -53,13 +53,13 @@ const CreatePost = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+         setUrl(data.url);
         if (data.error.message) {
           M.toast({
             html: data.error.message,
             classes: "#c62828 red darken-3",
           });
         }
-        setUrl(data.url);
       })
       .catch((err) => {
         console.log(err);      
