@@ -12,12 +12,12 @@ function Login() {
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
 useEffect(()=>{
-  fetch("/users/test")
-    .then(res => res.json())
+  fetch("/users/getRouter")
+    .then((res) => res.json())
     .then((data) => {
-      console.log(data)   
-     })
-    .catch(error => console.log(error))
+      console.log(data);
+    })
+    .catch((error) => console.log(error));
 },[])
    
  

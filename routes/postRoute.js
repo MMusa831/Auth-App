@@ -16,7 +16,7 @@ router.post("/create", auth, async (req, res) => {
     const new_post = new Post({
       title,
       body,
-     
+      photo,     
       postedBy: req.user,
     });
     const saved_post = await new_post.save();

@@ -72,10 +72,6 @@ router.post("/create", async (req, res) => {
     console.log(err);
   }
 });
-// Test route
-router.get("/test", (req, res) => {
-  res.json({message: "This is test route!"});
-});
 
 // Activate route
 

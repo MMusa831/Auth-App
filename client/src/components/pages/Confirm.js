@@ -7,17 +7,25 @@ import { useParams, useHistory } from "react-router-dom";
 function Confirm() {
   const history = useHistory();
   const { token } = useParams();
-
-   useEffect(() => {
+ 
+  
+  useEffect(() => {
     // getResponse();
+    console.log(token);
     fetch(`/users/activate/${token}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          console.log(data.error);
-        } else {
-          console.log(data.message);
-          // history.push("/login");
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.error) {
+        M.toast({
+          html: data.error,
+          classes: "#c62828 red darken-3",
+        });
+      } else {
+       M.toast({
+         html: "you logged in successfully",
+         classes: "#2e7d32 green darken-3",
+       });
+           history.push("/login");
         }
       })
       .catch((err) => console.log(err));
