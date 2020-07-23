@@ -37,7 +37,7 @@ const Profile = () => {
         <div>
           <img
             style={{ height: "200px", width: "200px", borderRadius: "50%" }}
-            src="https://images.unsplash.com/photo-1542206395-9feb3edaa68d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQsiLJK7jTvBh8VZfehWLIXdlHn7UzlgSbHmw&usqp=CAU"
           />
         </div>
         <div style={{ marginTop: "20px" }}>
