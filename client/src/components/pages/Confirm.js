@@ -10,7 +10,7 @@ function Confirm() {
 
    useEffect(() => {
     // getResponse();
-    fetch(`/users/test`)
+    fetch(`/users/activate/${token}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {

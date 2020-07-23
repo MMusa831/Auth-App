@@ -3,30 +3,24 @@ import Axios from "axios";
 import UserContext from "../context/Context";
 import { useHistory, Link } from "react-router-dom";
 import M from "materialize-css";
-import { notify } from "react-notify-toast";
+
+
 
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
- const test = () => {
-   fetch(
-     "/users/test",
-     {
-       method: 'GET',      
-     }
-   ).then((response) => {
-       if (!response.ok) {
-         console.log('Error - 404 Not Found')
-       }
-
-         return response.json()
-     }).then(data => {
-       console.log(data)
-     })       
-     .catch((err) =>console.log(err))
- }
+useEffect(()=>{
+  fetch("/users/test")
+    .then(res => res.json())
+    .then((data) => {
+      console.log(data)   
+     })
+    .catch(error => console.log(error))
+},[])
+   
+ 
   
   const onSubmit = async (e) => {
    
@@ -85,8 +79,7 @@ function Login() {
         <input type="submit" id="btn" value="Login" onClick={onSubmit} />
         <Link className="link-toggle" to="/register">
           You have not account? Register here
-        </Link>
-        <input type="submit" id="btn" value="Test" onClick={test} />
+        </Link>       
       </div>
     </div>
   );
