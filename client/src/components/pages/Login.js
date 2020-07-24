@@ -1,19 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
-import Axios from "axios";
 import UserContext from "../context/Context";
 import { useHistory, Link } from "react-router-dom";
 import M from "materialize-css";
-
-
+import Axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
-  
+
   const onSubmit = async (e) => {
-   
     fetch("/users/login", {
       method: "post",
       headers: {
@@ -69,7 +66,9 @@ function Login() {
         <input type="submit" id="btn" value="Login" onClick={onSubmit} />
         <Link className="link-toggle" to="/register">
           You have not account? Register here
-        </Link>       
+        </Link>
+        <br />
+        <Link to="/forgot-password">forgot your password? reset here</Link>
       </div>
     </div>
   );

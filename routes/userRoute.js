@@ -172,5 +172,71 @@ router.get("/", auth, async (req, res) => {
     id: user._id,
   });
 });
+// Forgot Password
+router.put("/forgot-password", (req, res) => {
+  try {
+    const { email } = req.body;
+    User.findOne({ email }, (err, user) => {
+      if (err || !user) {
+        res.status(400).json({ error: "User with this email does not exist!" });
+      }
+      const token = jwt.sign({ _id: user._id }, process.env.RESET_PASS_KEY, {
+        expiresIn: "20m",
+      });
 
+      User.updateOne({ resetPasswordToken: token }, (err, success) => {
+        if (err) {
+          return res.status(400).json({ error: "reset password error!" });
+        }
+        transporter.sendMail({
+          to: user.email,
+          from: "no-replay@blogpost.com",
+          subject: "Reset password link",
+          html: `
+           <h2>Pleast click on or copy the link to reset your password!</h2>
+          <a href="http://${req.headers.host}/reset-password/${token}">http://${req.headers.host}/reset-password/${token}</a>`,
+        });
+        return res.json({
+          message: "Please check your email and reset your password!",
+        });
+      });
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+// Reset Password
+router.post('/reset-password/:token', (req, res)=> {
+  const token = req.params.token
+  if (token) {
+    jwt.verify(token, process.env.RESET_PASS_KEY, (err, decodedToken) => {
+      if (err) {
+        return res.status(400).json({ error: "invalid token or expired!!" });
+      }
+      const { newPassword, confirmNewPassword } = decodedToken;
+      User.findOne({ resetPasswordToken }, (err, user)=> {
+        if (err || !user) {
+          res.status(400).json({ error: "User with this token does not exist!" });
+        }
+        const new_pass = {
+          password: newPassword,
+          confirmPassword: confirmNewPassword
+        }
+        new_pass.save((err, message) => {
+          if (err) {
+            return res.status(400).json({
+              error: "Error while changing password",
+            });
+          }
+          res.json({
+            message: "Your password successfully changed please login!!",
+          });
+        });
+      })
+    })
+    
+  }else {
+        return res.json({ error: "Something went wrong" });
+  }   
+});
 module.exports = router;
