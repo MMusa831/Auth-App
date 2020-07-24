@@ -17,6 +17,34 @@ function Home() {
       });
   }, []);
 
+  const AddComment = (text, postId) => {
+    fetch("/posts/comment", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("usertoken"),
+      },
+      body: JSON.stringify({
+        postId,
+        text,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {        
+        console.log(result);
+        const newData = data.map(item => {
+          if(item._id === result._id) {
+            return result;
+          }else {
+            return item;
+          }
+        })
+        setData(newData)
+      }).catch(err => {
+        console.log(err)
+      });
+  }
+
   return (
     <div className="home">
       {data.map((item) => {
@@ -29,15 +57,27 @@ function Home() {
               <h6 className="post-title">{item.title}</h6>
               <p>{item.body}</p>
               <p className="posted-by">
-                Created By: {item.postedBy.displayName}<br/>
-                 at: {new Date(item.date).toDateString()}
+                Created By: {item.postedBy.displayName}
+                <br />
+                at: {new Date(item.date).toDateString()}
               </p>
-
-              <input
-                id="standard-basic"
-                className="input"
-                placeholder="Add comment"
-              />
+              {
+                item.comments.map(comment => {
+                  return (
+                    <h6 key={item._id}><span style={{fontWeight: "600"}}>{comment.postedBy.displayName}</span>{comment.text}</h6>
+                  )
+                })
+              }
+              <form onSubmit={(e) =>{
+                e.preventDefault()
+                AddComment(e.target[0].value, item._id)
+              }}>
+                <input
+                  id="standard-basic"
+                  className="input"
+                  placeholder="Add comment"
+                />
+              </form>
             </div>
           </div>
         );

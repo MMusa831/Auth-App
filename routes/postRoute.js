@@ -32,6 +32,7 @@ router.post("/create", auth, async (req, res) => {
 router.get("/allPosts", auth, (req, res) => {
   Post.find()
     .populate("postedBy", "_id displayName")
+    .populate("comments.postedBy", "_id displayName")
     .then((posts) => {
       res.json({ posts });
     })
@@ -50,19 +51,44 @@ router.get("/myPosts", auth, (req, res) => {
       console.log(err);
     });
 });
+// Add comments
+router.put("/comment", auth, (req, res) => {
+  const comment = {
+    text: req.body.text,
+    postedBy: req.user._id
+  }
+    Post.findByIdAndUpdate(
+      req.body.postId,
+      {
+        $push: { comments: comment },
+      },
+      {
+        new: true,
+      }
+    )
+      .populate("comments.postedBy", "_id displayName")
+      .populate("postedBy", "_id displayName")
+      .exec((err, result) => {
+        if (err) {
+          return res.status(422).json({ error: err });
+        } else {
+          res.json(result);
+        }
+      });
+})
 // Like route
 // router.put('/like',auth, (req, res) => {
-//   Post.findByIdAndUpdate(req.body.postId, {
-//     $push: { likes: req.user._id }
-//     }, {
-//       new: true
-//     }).exec((err, result) =>{
-//      if(err){
-//       return res.status(422).json({error:err })
-//      }else{
-//         res.json(result)
-//      }
-//     })
+  // Post.findByIdAndUpdate(req.body.postId, {
+  //   $push: { likes: req.user._id }
+  //   }, {
+  //     new: true
+  //   }).exec((err, result) =>{
+  //    if(err){
+  //     return res.status(422).json({error:err })
+  //    }else{
+  //       res.json(result)
+  //    }
+  //   })
 // })
 
 // // Dislike route
