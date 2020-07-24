@@ -233,13 +233,14 @@ router.post("/reset-password/:token", (req, res) => {
               .status(400)
               .json({ error: "User with this token does not exist!" });
           }
-           const salt = bcrypt.genSalt();
-           const hashedPassword = bcrypt.hash(newPassword, salt);
+           bcrypt.hash(newPassword, 10, (err, hash) => {
+          newPassword = hash;
           const obj = {
-            hashedPassword: newPassword,
+            password: newPassword,
             resetPasswordToken: "",
           };
-          user = _.extend(user, obj);         
+          user = _.extend(user, obj);
+          console.log(user);
           user.save((err, message) => {
             if (err) {
               return res.status(400).json({
@@ -250,6 +251,8 @@ router.post("/reset-password/:token", (req, res) => {
               message: "Your password has been changed successfully!!",
             });
           });
+
+           })
         });
       }
     );

@@ -146,3 +146,56 @@ if (!verified) return res.json(false);
 req.user = await User.findById(verified.id);
 
 next();   
+
+
+router.post("/reset-password/:token", (req, res) => {
+  const resetPasswordToken = req.params.token;
+  const { newPassword, confirmNewPassword } = req.body;
+  if (newPassword.length < 6)
+    return res
+      .status(400)
+      .json({ error: "Pasword must be at least 6 character long!" });
+  if (newPassword !== confirmNewPassword)
+    return res.status(400).json({
+      error: "Your password and confirmation password are not match!",
+    });
+  if (resetPasswordToken) {
+    jwt.verify(
+      resetPasswordToken,
+      process.env.RESET_PASS_KEY,
+      (err, decodedToken) => {
+        if (err) {
+          return res.status(400).json({ error: "invalid token or expired!!" });
+        }
+
+        User.findOne({ resetPasswordToken }, (err, user) => {
+          if (err || !user) {
+            res
+              .status(400)
+              .json({ error: "User with this token does not exist!" });
+          }
+          const salt = bcrypt.genSalt();
+          const hashedPassword = bcrypt.hash(newPassword, salt);
+          const obj = {
+            password: newPassword,
+            resetPasswordToken: "",
+          };
+          user = _.extend(user, obj);
+          console.log(user);
+          user.save((err, message) => {
+            if (err) {
+              return res.status(400).json({
+                error: "Error while changing password",
+              });
+            }
+            res.json({
+              message: "Your password has been changed successfully!!",
+            });
+          });
+        });
+      }
+    );
+  } else {
+    return res.json({ error: "Something went wrong" });
+  }
+});
