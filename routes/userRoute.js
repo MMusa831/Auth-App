@@ -209,37 +209,32 @@ router.put("/forgot-password", (req, res) => {
 // Reset Password
 router.post("/reset-password", (req, res) => {
   let { newPassword, resetPasswordToken } = req.body;
-   if (resetPasswordToken) {
-     jwt.verify(resetPasswordToken, process.env.RESET_PASS_KEY, (err, user) => {
-       if (err || !user) {
-         res
-           .status(400)
-           .json({ error: "User with this token does not exist!" });
-       }
-       User.findOne({ resetPasswordToken })
-         .then((user) => {           
-           if (!user) {
-             res
-               .status(400)
-               .json({ error: "User with this token does not exist!" });
-           }
-           bcrypt.hash(newPassword, 10).then((hashedpassword) => {
-             const obj = {
-              newPassword: hashedpassword,
-               resetPasswordToken: "",
-             };
-             user = _.extend(user, obj);
-            // res.send(user);
-             user.save().then((saveduser) => {
-               res.json({ message: "Password updated successfully!!" });
-             });
-           });
-         })
-         .catch((err) => {
-           console.log(err);
-         });
-     });
-   } 
-    
+  if (resetPasswordToken) {
+    jwt.verify(resetPasswordToken, process.env.RESET_PASS_KEY, (err, user) => {
+      if (err || !user) {
+        res.status(400).json({ error: "User with this token does not exist!" });
+      }
+      User.findOne({ resetPasswordToken })
+        .then((user) => {
+          if (!user) {
+            res
+              .status(400)
+              .json({ error: "User with this token does not exist!" });
+          }
+          bcrypt.hash(newPassword, 10).then((hashedpassword) => {
+            user.password = hashedpassword;
+            user.resetPasswordToken = "";
+            console.log(user);
+            user.save((err) => {
+              if (err) console.log(err);
+              res.json({ message: "Password updated successfully!!" });
+            });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  }
 });
 module.exports = router;
