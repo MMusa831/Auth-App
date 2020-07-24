@@ -185,7 +185,7 @@ router.put("/forgot-password", (req, res) => {
         expiresIn: "20m",
       });
 
-      User.updateOne({ resetPasswordToken: token }, (err, success) => {
+      user.updateOne({ resetPasswordToken: token }, (err, success) => {
         if (err) {
           return res.status(400).json({ error: "reset password error!" });
         }
@@ -208,22 +208,36 @@ router.put("/forgot-password", (req, res) => {
 });
 // Reset Password
 router.post("/reset-password", (req, res) => {
-  const { resetPasswordToken, newPassword } = req.body;
+  const { resetPasswordToken, newPassword, confirmNewPassword } = req.body;
+  if (newPassword.length < 6)
+    return res
+      .status(400)
+      .json({ error: "Pasword must be at least 6 character long!" });
+  if (newPassword !== confirmNewPassword)
+    return res.status(400).json({
+      error: "Your password and confirmation password are not match!",
+    });
   if (resetPasswordToken) {
-    jwt.verify( resetPasswordToken, process.env.RESET_PASS_KEY, (err, decodedToken) => {
+    jwt.verify(
+      resetPasswordToken,
+      process.env.RESET_PASS_KEY,
+      (err, decodedToken) => {
         if (err) {
-          return res.status(400).json({ error: "invalid token or expired!!" });        }
-       
+          return res.status(400).json({ error: "invalid token or expired!!" });
+        }
+
         User.findOne({ resetPasswordToken }, (err, user) => {
           if (err || !user) {
             res
               .status(400)
               .json({ error: "User with this token does not exist!" });
           }
-          const passObj = {
+          const obj = {
             password: newPassword,
+            resetPasswordToken: "",
           };
-          user = _.extend(user, passObj);
+          user = _.extend(user, obj);
+          console.log(user);
           user.save((err, message) => {
             if (err) {
               return res.status(400).json({

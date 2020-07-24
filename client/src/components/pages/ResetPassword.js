@@ -17,6 +17,7 @@ function ResetPassword() {
         },
         body: JSON.stringify({
           newPassword,
+          confirmNewPassword,
           resetPasswordToken,
         }),
       })
@@ -51,14 +52,14 @@ function ResetPassword() {
           name="newPassword"
           onChange={(e) => setNewPassword(e.target.value)}
         />
-        {/* <input
+        <input
           type="password"
           id="standard-basic"
            className="input"
            placeholder="Confirm Password"
            name="newConfirmPassword"
            onChange={(e) => setConfirmNewPassword(e.target.value)}
-         /> */}
+         />
         <input type="submit" id="btn" value="Submit" onClick={onSubmit} />
       </div>
     </div>
