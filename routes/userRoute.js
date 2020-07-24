@@ -207,8 +207,9 @@ router.put("/forgot-password", (req, res) => {
   }
 });
 // Reset Password
-router.post("/reset-password", (req, res) => {
-  let { newPassword, resetPasswordToken } = req.body;
+router.post("/reset-password/:token", (req, res) => {
+  const resetPasswordToken = req.body.params
+  let newPassword = req.body.newPassword;
   if (resetPasswordToken) {
     jwt.verify(resetPasswordToken, process.env.RESET_PASS_KEY, (err, user) => {
       if (err || !user) {
@@ -223,8 +224,7 @@ router.post("/reset-password", (req, res) => {
           }
           bcrypt.hash(newPassword, 10).then((hashedpassword) => {
             user.password = hashedpassword;
-            user.resetPasswordToken = "";
-            console.log(user);
+            user.resetPasswordToken = "";           
             user.save((err) => {
               if (err) console.log(err);
               res.json({ message: "Password updated successfully!!" });

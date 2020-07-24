@@ -3,41 +3,40 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import M from "materialize-css";
 
 function ResetPassword() {
-    const [newPassword, setNewPassword] = useState();
-    const [confirmNewPassword, setConfirmNewPassword] = useState();
- 
+  const [newPassword, setNewPassword] = useState();
+  const [confirmNewPassword, setConfirmNewPassword] = useState();
+
   const history = useHistory();
-    const { token } = useParams();
+  const { token } = useParams();
 
   const onSubmit = () => {
-      fetch(`/users/reset-password`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          newPassword,
-          token,
-        }),
+    fetch(`/users/reset-password/${token}`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        newPassword,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          M.toast({
+            html: data.error,
+            classes: "#c62828 red darken-3",
+          });
+        } else {
+          M.toast({
+            html: data.message,
+            classes: "#2e7d32 green darken-3",
+          });
+          history.push("/login");
+        }
       })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) {
-            M.toast({
-              html: data.error,
-              classes: "#c62828 red darken-3",
-            });
-          } else {
-            M.toast({
-              html: data.message,
-              classes: "#2e7d32 green darken-3",
-            });
-            history.push("/login");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="log-div">
