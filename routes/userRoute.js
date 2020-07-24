@@ -194,7 +194,7 @@ router.put("/forgot-password", (req, res) => {
           subject: "Reset password link",
           html: `
            <h2>Pleast click on or copy the link to reset your password!</h2>
-          <a href="http://${req.headers.host}/reset-password/${token}">http://${req.headers.host}/reset-password/${token}</a>`,
+          <a href="http://${req.headers.host}/reset/${token}">http://${req.headers.host}/reset/${token}</a>`,
         });
         return res.json({
           message: "Please check your email and reset your password!",

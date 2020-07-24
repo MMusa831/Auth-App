@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import M from "materialize-css";
 
@@ -44,6 +44,7 @@ function ResetPassword() {
       <div className="form-div">
         <h3 className="register">Reset your password</h3>
         <input
+          type="password"
           id="standard-basic"
           className="input"
           placeholder="Password"
@@ -51,6 +52,7 @@ function ResetPassword() {
           onChange={(e) => setNewPassword(e.target.value)}
         />
         <input
+          type="password"
           id="standard-basic"
            className="input"
            placeholder="Confirm Password"

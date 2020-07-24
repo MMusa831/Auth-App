@@ -30,7 +30,7 @@ const Routing = () => {
       dispatch({ type: "USER", payload: user });
       history.push("/");
     } else {
-      if (!history.location.pathname.startsWith("/confirm") || !history.location.pathname.startsWith("/forgot-password") || !history.location.pathname.startsWith("/reset-password"))
+      if (!history.location.pathname.startsWith("/reset") || !history.location.pathname.startsWith("/reset"))
         history.push("/login");
     }
   }, []);
@@ -44,7 +44,7 @@ const Routing = () => {
         <Route path="/createpost" component={CreatePost} />
         <Route path="/confirm/:token" component={Confirm} />
         <Route path="/forgot-password" component={ForgotPassword} />
-        <Route path="/reset-password/:token" component={ResetPassword} />
+        <Route path="/reset/:token" component={ResetPassword} />
 
       </Switch>
     </div>
