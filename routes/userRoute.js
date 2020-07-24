@@ -208,8 +208,8 @@ router.put("/forgot-password", (req, res) => {
 });
 // Reset Password
 router.post("/reset-password/:token", (req, res) => {
-  const resetPasswordToken = req.body.params
-  let newPassword = req.body.newPassword;
+  const resetPasswordToken = req.params.token
+  let password = req.body.password;
   if (resetPasswordToken) {
     jwt.verify(resetPasswordToken, process.env.RESET_PASS_KEY, (err, user) => {
       if (err || !user) {
@@ -222,7 +222,7 @@ router.post("/reset-password/:token", (req, res) => {
               .status(400)
               .json({ error: "User with this token does not exist!" });
           }
-          bcrypt.hash(newPassword, 10).then((hashedpassword) => {
+          bcrypt.hash(password, 10).then((hashedpassword) => {
             user.password = hashedpassword;
             user.resetPasswordToken = "";           
             user.save((err) => {

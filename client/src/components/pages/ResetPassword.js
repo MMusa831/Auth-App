@@ -3,7 +3,7 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import M from "materialize-css";
 
 function ResetPassword() {
-  const [newPassword, setNewPassword] = useState();
+  const [password, setPassword] = useState();
   const [confirmNewPassword, setConfirmNewPassword] = useState();
 
   const history = useHistory();
@@ -16,7 +16,7 @@ function ResetPassword() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        newPassword,
+        password,
       }),
     })
       .then((res) => res.json())
@@ -47,8 +47,8 @@ function ResetPassword() {
           id="standard-basic"
           className="input"
           placeholder="Password"
-          name="newPassword"
-          onChange={(e) => setNewPassword(e.target.value)}
+          name="password"
+          onChange={(e) => setPassword(e.target.value)}
         />
         {/* <input
           type="password"
