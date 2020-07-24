@@ -10,14 +10,14 @@ function ResetPassword() {
     const { token } = useParams();
 
   const onSubmit = () => {
-      fetch(`/users/reset-password/${token}`, {
+      fetch(`/users/reset-password`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           newPassword,
-          confirmNewPassword,
+          token,
         }),
       })
         .then((res) => res.json())
@@ -51,14 +51,14 @@ function ResetPassword() {
           name="newPassword"
           onChange={(e) => setNewPassword(e.target.value)}
         />
-        <input
+        {/* <input
           type="password"
           id="standard-basic"
            className="input"
            placeholder="Confirm Password"
            name="newConfirmPassword"
            onChange={(e) => setConfirmNewPassword(e.target.value)}
-         />
+         /> */}
         <input type="submit" id="btn" value="Submit" onClick={onSubmit} />
       </div>
     </div>

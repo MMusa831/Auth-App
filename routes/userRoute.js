@@ -207,57 +207,39 @@ router.put("/forgot-password", (req, res) => {
   }
 });
 // Reset Password
-router.post("/reset-password/:token", (req, res) => {
-  const resetPasswordToken  = req.params.token;
-   const { newPassword, confirmNewPassword } =req.body;
-  if (newPassword.length < 6)
-    return res
-      .status(400)
-      .json({ error: "Pasword must be at least 6 character long!" });
-  if (newPassword !== confirmNewPassword)
-    return res.status(400).json({
-      error: "Your password and confirmation password are not match!",
-    });
-  if (resetPasswordToken) {
-    jwt.verify(
-      resetPasswordToken,
-      process.env.RESET_PASS_KEY,
-      (err, decodedToken) => {
-        if (err) {
-          return res.status(400).json({ error: "invalid token or expired!!" });
-        }
-       
-        User.findOne({ resetPasswordToken }, (err, user) => {
-          if (err || !user) {
-            res
-              .status(400)
-              .json({ error: "User with this token does not exist!" });
-          }
-           bcrypt.hash(newPassword, 10, (err, hash) => {
-          newPassword = hash;
-          const obj = {
-            password: newPassword,
-            resetPasswordToken: "",
-          };
-          user = _.extend(user, obj);
-          console.log(user);
-          user.save((err, message) => {
-            if (err) {
-              return res.status(400).json({
-                error: "Error while changing password",
-              });
-            }
-            res.json({
-              message: "Your password has been changed successfully!!",
-            });
-          });
-
-           })
-        });
-      }
-    );
-  } else {
-    return res.json({ error: "Something went wrong" });
-  }
+router.post("/reset-password", (req, res) => {
+  let { newPassword, resetPasswordToken } = req.body;
+   if (resetPasswordToken) {
+     jwt.verify(resetPasswordToken, process.env.RESET_PASS_KEY, (err, user) => {
+       if (err || !user) {
+         res
+           .status(400)
+           .json({ error: "User with this token does not exist!" });
+       }
+       User.findOne({ resetPasswordToken })
+         .then((user) => {           
+           if (!user) {
+             res
+               .status(400)
+               .json({ error: "User with this token does not exist!" });
+           }
+           bcrypt.hash(newPassword, 10).then((hashedpassword) => {
+             const obj = {
+              newPassword: hashedpassword,
+               resetPasswordToken: "",
+             };
+             user = _.extend(user, obj);
+            // res.send(user);
+             user.save().then((saveduser) => {
+               res.json({ message: "Password updated successfully!!" });
+             });
+           });
+         })
+         .catch((err) => {
+           console.log(err);
+         });
+     });
+   } 
+    
 });
 module.exports = router;
