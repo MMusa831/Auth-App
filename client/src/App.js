@@ -44,7 +44,7 @@ const Routing = () => {
         <Route path="/createpost" component={CreatePost} />
         <Route path="/confirm/:token" component={Confirm} />
         <Route path="/forgot-password" component={ForgotPassword} />
-        <Route path="/reset-password/:token" component={ResetPassword} />
+        <Route path="/resetPassword/:token" component={ResetPassword} />
 
       </Switch>
     </div>

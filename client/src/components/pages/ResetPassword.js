@@ -1,15 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import M from "materialize-css";
 
 function ResetPassword() {
     const [newPassword, setNewPassword] = useState();
     const [confirmNewPassword, setConfirmNewPassword] = useState();
-
+ 
   const history = useHistory();
+    const { token } = useParams();
 
   const onSubmit = () => {
-    fetch("/users/reset-password", {
+      fetch(`/users/reset-password/${token}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
