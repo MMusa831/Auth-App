@@ -56,7 +56,7 @@ function ResetPassword() {
           id="standard-basic"
           className="input"
           placeholder="Confirm Password"
-          name="setConfirmPassword"
+          name="confirmPassword"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <input type="submit" id="btn" value="Submit" onClick={onSubmit} />
