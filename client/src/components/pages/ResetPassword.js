@@ -4,7 +4,7 @@ import M from "materialize-css";
 
 function ResetPassword() {
   const [password, setPassword] = useState();
-  const [confirmNewPassword, setConfirmNewPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
 
   const history = useHistory();
   const { token } = useParams();
@@ -17,6 +17,7 @@ function ResetPassword() {
       },
       body: JSON.stringify({
         password,
+        confirmPassword,
       }),
     })
       .then((res) => res.json())
@@ -50,14 +51,14 @@ function ResetPassword() {
           name="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        {/* <input
+        <input
           type="password"
           id="standard-basic"
-           className="input"
-           placeholder="Confirm Password"
-           name="newConfirmPassword"
-           onChange={(e) => setConfirmNewPassword(e.target.value)}
-         /> */}
+          className="input"
+          placeholder="Confirm Password"
+          name="setConfirmPassword"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
         <input type="submit" id="btn" value="Submit" onClick={onSubmit} />
       </div>
     </div>

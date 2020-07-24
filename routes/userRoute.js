@@ -210,6 +210,15 @@ router.put("/forgot-password", (req, res) => {
 router.post("/reset-password/:token", (req, res) => {
   const resetPasswordToken = req.params.token
   let password = req.body.password;
+  let confirmPassword = req.body.confirmPassword;
+  if (password.length < 6)
+    return res
+      .status(400)
+      .json({ error: "Pasword must be at least 6 character long!" });
+      if (password !== confirmPassword)
+        return res.status(400).json({
+          error: "Your password and confirmation password are not match!",
+        });
   if (resetPasswordToken) {
     jwt.verify(resetPasswordToken, process.env.RESET_PASS_KEY, (err, user) => {
       if (err || !user) {
