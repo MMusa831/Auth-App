@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../auth/auth");
 const nodemailer = require("nodemailer");
 const sendGridTransport = require("nodemailer-sendgrid-transport");
+const _ = require('lodash')
 require("dotenv").config();
 
 const transporter = nodemailer.createTransport(
@@ -206,23 +207,26 @@ router.put("/forgot-password", (req, res) => {
   }
 });
 // Reset Password
-router.post('/reset-password/:token', (req, res)=> {
-  const token = req.params.token
-  if (token) {
-    jwt.verify(token, process.env.RESET_PASS_KEY, (err, decodedToken) => {
+router.post("/reset-password/:token", (req, res) => {
+  const resetPasswordToken = req.params.token;
+  if (resetPasswordToken) {
+    jwt.verify(resetPasswordToken, process.env.RESET_PASS_KEY, (err, decodedToken) => {
       if (err) {
         return res.status(400).json({ error: "invalid token or expired!!" });
       }
       const { newPassword, confirmNewPassword } = decodedToken;
-      User.findOne({ resetPasswordToken }, (err, user)=> {
+      User.findOne({ resetPasswordToken }, (err, user) => {
         if (err || !user) {
-          res.status(400).json({ error: "User with this token does not exist!" });
+          res
+            .status(400)
+            .json({ error: "User with this token does not exist!" });
         }
         const new_pass = {
           password: newPassword,
-          confirmPassword: confirmNewPassword
-        }
-        new_pass.save((err, message) => {
+          confirmPassword: confirmNewPassword,
+        };
+        user = _.extend(user, new_pass)
+        user.save((err, message) => {
           if (err) {
             return res.status(400).json({
               error: "Error while changing password",
@@ -232,11 +236,10 @@ router.post('/reset-password/:token', (req, res)=> {
             message: "Your password successfully changed please login!!",
           });
         });
-      })
-    })
-    
-  }else {
-        return res.json({ error: "Something went wrong" });
-  }   
+      });
+    });
+  } else {
+    return res.json({ error: "Something went wrong" });
+  }
 });
 module.exports = router;
