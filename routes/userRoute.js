@@ -207,8 +207,8 @@ router.put("/forgot-password", (req, res) => {
   }
 });
 // Reset Password
-router.post("/reset-password/:resetPasswordToken", (req, res) => {
-  const resetPasswordToken  = req.params.resetPasswordToken;
+router.post("/reset-password/:token", (req, res) => {
+  const resetPasswordToken  = req.params.token;
   const { newPassword, confirmNewPassword } =req.body;
   if (newPassword.length < 6)
     return res

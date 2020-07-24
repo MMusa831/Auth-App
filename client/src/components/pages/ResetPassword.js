@@ -7,10 +7,10 @@ function ResetPassword() {
     const [confirmNewPassword, setConfirmNewPassword] = useState();
  
   const history = useHistory();
-    const { resetPasswordToken } = useParams();
+    const { token } = useParams();
 
   const onSubmit = () => {
-      fetch(`/users/reset-password/${resetPasswordToken}`, {
+      fetch(`/users/reset-password/${token}`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
