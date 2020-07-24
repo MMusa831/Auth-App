@@ -209,7 +209,7 @@ router.put("/forgot-password", (req, res) => {
 // Reset Password
 router.post("/reset-password/:token", (req, res) => {
   const resetPasswordToken  = req.params.token;
-  const { newPassword, confirmNewPassword } =req.body;
+   const { newPassword, confirmNewPassword } =req.body;
   if (newPassword.length < 6)
     return res
       .status(400)
@@ -226,19 +226,20 @@ router.post("/reset-password/:token", (req, res) => {
         if (err) {
           return res.status(400).json({ error: "invalid token or expired!!" });
         }
-
+       
         User.findOne({ resetPasswordToken }, (err, user) => {
           if (err || !user) {
             res
               .status(400)
               .json({ error: "User with this token does not exist!" });
           }
+           const salt = bcrypt.genSalt();
+           const hashedPassword = bcrypt.hash(newPassword, salt);
           const obj = {
-            password: newPassword,
+            hashedPassword: newPassword,
             resetPasswordToken: "",
           };
-          user = _.extend(user, obj);
-          console.log(user);
+          user = _.extend(user, obj);         
           user.save((err, message) => {
             if (err) {
               return res.status(400).json({
