@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../auth/auth");
 const nodemailer = require("nodemailer");
 const sendGridTransport = require("nodemailer-sendgrid-transport");
-const _ = require('lodash')
+const _ = require("lodash");
 require("dotenv").config();
 
 const transporter = nodemailer.createTransport(
@@ -207,37 +207,36 @@ router.put("/forgot-password", (req, res) => {
   }
 });
 // Reset Password
-router.post("/reset-password/:token", (req, res) => {
-  const resetPasswordToken = req.params.token;
+router.post("/reset-password", (req, res) => {
+  const { resetPasswordToken, newPassword } = req.body;
   if (resetPasswordToken) {
-    jwt.verify(resetPasswordToken, process.env.RESET_PASS_KEY, (err, decodedToken) => {
-      if (err) {
-        return res.status(400).json({ error: "invalid token or expired!!" });
-      }
-      const { newPassword, confirmNewPassword } = decodedToken;
-      User.findOne({ resetPasswordToken }, (err, user) => {
-        if (err || !user) {
-          res
-            .status(400)
-            .json({ error: "User with this token does not exist!" });
-        }
-        const new_pass = {
-          password: newPassword,
-          confirmPassword: confirmNewPassword,
-        };
-        user = _.extend(user, new_pass)
-        user.save((err, message) => {
-          if (err) {
-            return res.status(400).json({
-              error: "Error while changing password",
-            });
+    jwt.verify( resetPasswordToken, process.env.RESET_PASS_KEY, (err, decodedToken) => {
+        if (err) {
+          return res.status(400).json({ error: "invalid token or expired!!" });        }
+       
+        User.findOne({ resetPasswordToken }, (err, user) => {
+          if (err || !user) {
+            res
+              .status(400)
+              .json({ error: "User with this token does not exist!" });
           }
-          res.json({
-            message: "Your password successfully changed please login!!",
+          const passObj = {
+            password: newPassword,
+          };
+          user = _.extend(user, passObj);
+          user.save((err, message) => {
+            if (err) {
+              return res.status(400).json({
+                error: "Error while changing password",
+              });
+            }
+            res.json({
+              message: "Your password has been changed successfully!!",
+            });
           });
         });
-      });
-    });
+      }
+    );
   } else {
     return res.json({ error: "Something went wrong" });
   }
