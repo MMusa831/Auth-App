@@ -10,7 +10,7 @@ function ResetPassword() {
     const { resetPasswordToken } = useParams();
 
   const onSubmit = () => {
-      fetch(`/users/reset-password`, {
+      fetch(`/users/reset-password/${resetPasswordToken}`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -18,7 +18,6 @@ function ResetPassword() {
         body: JSON.stringify({
           newPassword,
           confirmNewPassword,
-          resetPasswordToken,
         }),
       })
         .then((res) => res.json())
